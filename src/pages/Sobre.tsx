@@ -27,7 +27,7 @@ const Sobre = () => (
     <section className="py-20">
       <div className="container max-w-4xl">
         <SectionReveal>
-          <h1 className="text-4xl font-bold mb-4 text-balance">Sobre a Celsão Auto Peças</h1>
+          <h1 className="text-4xl font-bold mb-4 text-balance text-secondary">Sobre a Celsão Auto Peças</h1>
           <p className="text-lg text-muted-foreground mb-12 text-pretty">
             Uma história de dedicação, qualidade e compromisso com nossos clientes
           </p>
