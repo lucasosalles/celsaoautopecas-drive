@@ -119,7 +119,7 @@ const Index = () => (
     <section className="py-20 bg-muted">
       <div className="container">
         <SectionReveal>
-          <h2 className="text-3xl font-extrabold text-center mb-12 text-balance text-secondary">Produtos em destaque</h2>
+          <h2 className="text-3xl font-extrabold text-center mb-12 text-balance text-secondary">Nossos Parceiros</h2>
         </SectionReveal>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
           {products.map((p, i) => (
