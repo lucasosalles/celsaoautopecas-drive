@@ -20,7 +20,7 @@ const Header = () => {
         </Link>
 
         {/* Desktop */}
-        <nav className="hidden md:flex items-center gap-8">
+        <nav className="hidden md:flex justify-center items-center gap-8">
           {navItems.map((item) => (
             <Link
               key={item.path}
