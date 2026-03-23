@@ -4,7 +4,6 @@ import { Truck, RefreshCw, CreditCard, ShieldCheck, Award, Clock, Headphones, Ma
 import SectionReveal from "@/components/SectionReveal";
 
 const benefits = [
-  { icon: Truck, text: "Enviamos para todo o Brasil" },
   { icon: RefreshCw, text: "Troca em 7 dias" },
   { icon: CreditCard, text: "Parcele em até 12x" },
   { icon: ShieldCheck, text: "Site 100% seguro" },
@@ -63,19 +62,10 @@ const Index = () => (
         </SectionReveal>
         <SectionReveal delay={0.3}>
           <div className="flex flex-wrap gap-4">
-            <a
-              href="https://wa.me/5511932997159?text=Olá!%20Vim%20pelo%20site%20e%20gostaria%20de%20ver%20o%20catálogo%20completo."
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-6 py-3 font-extrabold transition-all duration-200 hover:brightness-110 active:scale-[0.97] shadow-lg"
-              style={{ backgroundColor: "#e7c30b", color: "#1a1a1a", borderRadius: 0 }}
-            >
-              Ver catálogo completo →
-            </a>
             <Link
               to="/contato"
-              className="inline-flex items-center gap-2 px-6 py-3 font-semibold transition-all duration-200 hover:brightness-125 active:scale-[0.97]"
-              style={{ border: "1.5px solid rgba(220,27,23,0.6)", color: "#dc1b17", backgroundColor: "rgba(220,27,23,0.08)", borderRadius: 0 }}
+              className="inline-flex items-center gap-2 px-6 py-3 font-extrabold transition-all duration-200 hover:brightness-110 active:scale-[0.97] shadow-lg"
+              style={{ backgroundColor: "#e7c30b", color: "#1a1a1a", borderRadius: 0 }}
             >
               Fale conosco
             </Link>
