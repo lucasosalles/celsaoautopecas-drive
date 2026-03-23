@@ -119,14 +119,20 @@ const Contato = () => {
                   </div>
                 ))}
 
-                {/* Map */}
-                <div className="rounded-xl overflow-hidden border border-border shadow-sm">
-                  <iframe
-                    title="Localização Celsão Auto Peças"
-                    src="https://www.openstreetmap.org/export/embed.html?bbox=-46.47%2C-23.15%2C-46.44%2C-23.13&layer=mapnik"
-                    className="w-full h-64"
-                    loading="lazy"
-                  />
+                {/* Maps */}
+                <div className="space-y-6 mt-6">
+                  <div>
+                    <h4 className="font-bold mb-2">Bom Jesus dos Perdões</h4>
+                    <iframe src="https://maps.google.com/maps?q=Av+Santos+Dumont+425+Bom+Jesus+dos+Perdoes+SP&output=embed" width="100%" height="220" style={{border:0, borderRadius:'12px'}} allowFullScreen loading="lazy" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold mb-2">Nazaré Paulista</h4>
+                    <iframe src="https://maps.google.com/maps?q=Rua+Jose+Goncalves+332+Nazare+Paulista+SP&output=embed" width="100%" height="220" style={{border:0, borderRadius:'12px'}} allowFullScreen loading="lazy" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold mb-2">Atibaia</h4>
+                    <iframe src="https://maps.google.com/maps?q=Praca+24+de+Junho+40+Atibaia+SP&output=embed" width="100%" height="220" style={{border:0, borderRadius:'12px'}} allowFullScreen loading="lazy" />
+                  </div>
                 </div>
               </div>
             </SectionReveal>

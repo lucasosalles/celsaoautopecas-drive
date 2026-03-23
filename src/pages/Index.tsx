@@ -40,18 +40,17 @@ const Index = () => (
 
     {/* Hero */}
     <section className="relative min-h-[85vh] flex items-center overflow-hidden">
-      <div className="absolute inset-0">
-        <img src={heroBg} alt="" className="h-full w-full object-cover" />
-        <div className="absolute inset-0 bg-secondary/80" />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(135deg, #1a2840 0%, #0f1520 60%, #1a0c0c 100%)' }}>
+        <img src={heroBg} alt="" className="h-full w-full object-cover mix-blend-overlay opacity-20" />
       </div>
       <div className="container relative z-10 py-20">
         <SectionReveal>
-          <span className="inline-block rounded-full bg-primary px-4 py-1.5 text-xs font-semibold text-primary-foreground mb-6">
+          <span className="inline-block border border-[#e7c30b] text-[#e7c30b] bg-transparent rounded px-4 py-1.5 text-xs font-semibold mb-6">
             Há mais de 30 anos no mercado
           </span>
         </SectionReveal>
         <SectionReveal delay={0.1}>
-          <h1 className="text-4xl md:text-6xl font-bold text-primary-foreground max-w-2xl leading-[1.1] text-balance mb-6">
+          <h1 className="text-4xl md:text-6xl font-bold text-white max-w-2xl leading-[1.1] text-balance mb-6">
             Confiança e Tradição para o seu Veículo
           </h1>
         </SectionReveal>
@@ -62,8 +61,11 @@ const Index = () => (
         </SectionReveal>
         <SectionReveal delay={0.3}>
           <div className="flex flex-wrap gap-4">
-            <Link to="/contato" className="inline-flex items-center gap-2 rounded-lg border-2 border-primary-foreground/30 px-6 py-3 font-semibold text-primary-foreground transition-all duration-200 hover:bg-primary-foreground/10 active:scale-[0.97]">
+            <Link to="/contato" className="inline-flex items-center gap-2 bg-[#e7c30b] text-[#1a1a1a] font-extrabold rounded px-6 py-3 transition-all duration-200 hover:brightness-110 active:scale-[0.97]">
               Fale conosco
+            </Link>
+            <Link to="/sobre" className="inline-flex items-center gap-2 border border-[#dc1b17]/60 text-[#dc1b17] bg-[#dc1b17]/8 rounded px-6 py-3 transition-all duration-200 hover:bg-[#dc1b17]/20 active:scale-[0.97]">
+              Saiba mais
             </Link>
           </div>
         </SectionReveal>
@@ -71,13 +73,13 @@ const Index = () => (
     </section>
 
     {/* Benefits Bar */}
-    <section className="bg-primary text-primary-foreground py-6">
+    <section className="bg-[#e7c30b] py-6">
       <div className="container">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {benefits.map((b) => (
-            <div key={b.text} className="flex items-center gap-3 justify-center text-center md:text-left">
+            <div key={b.text} className="flex items-center gap-3 justify-center text-center md:text-left text-[#1a1a1a] font-bold">
               <b.icon className="h-5 w-5 shrink-0" />
-              <span className="text-sm font-medium">{b.text}</span>
+              <span className="text-sm">{b.text}</span>
             </div>
           ))}
         </div>
@@ -90,8 +92,8 @@ const Index = () => (
         <SectionReveal>
           <div className="grid gap-6 md:grid-cols-3">
             {differentials.map((d, i) => (
-              <SectionReveal key={d.title} delay={i * 0.1} className="group rounded-xl border border-border bg-card p-8 shadow-sm transition-shadow duration-300 hover:shadow-md">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <SectionReveal key={d.title} delay={i * 0.1} className="group rounded-xl bg-[#f8f9fa] border-b-4 border-[#e7c30b] border-x border-t border-border p-8 shadow-sm transition-shadow duration-300 hover:shadow-md">
+                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-[#dc1b17]/10 text-[#dc1b17]">
                   <d.icon className="h-6 w-6" />
                 </div>
                 <h3 className="text-lg font-bold text-card-foreground mb-2">{d.title}</h3>
@@ -103,36 +105,13 @@ const Index = () => (
       </div>
     </section>
 
-    {/* Featured Products */}
-    <section className="py-20 bg-muted">
-      <div className="container">
-        <SectionReveal>
-          <h2 className="text-3xl font-bold text-center mb-12 text-balance">Produtos em destaque</h2>
-        </SectionReveal>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          {products.map((p, i) => (
-            <SectionReveal key={p.name} delay={i * 0.08} className="group relative rounded-xl border border-border bg-card p-6 shadow-sm transition-shadow duration-300 hover:shadow-md flex flex-col">
-              {p.badge && (
-                <span className="absolute top-4 right-4 rounded-full bg-primary px-3 py-1 text-xs font-semibold text-primary-foreground">
-                  {p.badge}
-                </span>
-              )}
-              <div className="mb-4 h-32 rounded-lg bg-muted flex items-center justify-center">
-                <span className="text-3xl">🔧</span>
-              </div>
-              <h3 className="text-sm font-semibold text-card-foreground mb-2 flex-1 text-pretty">{p.name}</h3>
-              <p className="text-lg font-bold text-primary">{p.price}</p>
-            </SectionReveal>
-          ))}
-        </div>
-      </div>
-    </section>
+
 
     {/* Contact Quick */}
     <section className="py-20">
       <div className="container">
         <SectionReveal>
-          <h2 className="text-3xl font-bold text-center mb-12 text-balance">Entre em contato</h2>
+          <h2 className="text-3xl text-[#243851] font-extrabold text-center mb-12 text-balance">Entre em contato</h2>
         </SectionReveal>
         <div className="grid gap-4 md:grid-cols-2 mb-8">
           <SectionReveal delay={0.1}>
@@ -174,7 +153,7 @@ const Index = () => (
           ))}
         </div>
         <SectionReveal className="mt-10 text-center">
-          <Link to="/contato" className="inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-semibold text-primary-foreground transition-all duration-200 hover:brightness-110 active:scale-[0.97]">
+          <Link to="/contato" className="inline-flex items-center gap-2 bg-[#e7c30b] text-[#1a1a1a] font-extrabold rounded px-6 py-3 transition-all duration-200 hover:brightness-110 active:scale-[0.97]">
             Enviar mensagem →
           </Link>
         </SectionReveal>
