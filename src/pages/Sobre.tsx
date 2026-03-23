@@ -47,7 +47,7 @@ const Sobre = () => (
     <section className="py-20 bg-muted">
       <div className="container">
         <SectionReveal>
-          <h2 className="text-3xl font-bold text-center mb-12 text-balance">Nossos valores</h2>
+          <h2 className="text-3xl font-extrabold text-center mb-12 text-balance text-secondary">Nossos valores</h2>
         </SectionReveal>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {values.map((v, i) => (
