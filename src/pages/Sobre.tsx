@@ -27,7 +27,7 @@ const Sobre = () => (
     <section className="py-20">
       <div className="container max-w-4xl">
         <SectionReveal>
-          <h1 className="text-4xl font-bold mb-4 text-balance">Sobre a Celsão Auto Peças</h1>
+          <h1 className="text-4xl font-bold mb-4 text-balance text-secondary">Sobre a Celsão Auto Peças</h1>
           <p className="text-lg text-muted-foreground mb-12 text-pretty">
             Uma história de dedicação, qualidade e compromisso com nossos clientes
           </p>
@@ -35,7 +35,7 @@ const Sobre = () => (
 
         <SectionReveal delay={0.1}>
           <div className="rounded-xl border border-border bg-card p-8 shadow-sm mb-16">
-            <h2 className="text-2xl font-bold mb-4 text-card-foreground">Nossa história</h2>
+            <h2 className="text-2xl font-extrabold mb-4 text-secondary">Nossa história</h2>
             <p className="text-muted-foreground leading-relaxed text-pretty">
               Fundada em 1994 por Celso Barbosa em Bom Jesus dos Perdões — SP, a Celsão Auto Peças nasceu do sonho de oferecer peças automotivas de qualidade com atendimento diferenciado. O que começou como uma pequena loja, hoje são 3 unidades referência na região. Ao longo dos anos, construímos parcerias sólidas com os principais fabricantes e distribuidores do mercado, garantindo sempre produtos originais e com procedência certificada.
             </p>
@@ -47,7 +47,7 @@ const Sobre = () => (
     <section className="py-20 bg-muted">
       <div className="container">
         <SectionReveal>
-          <h2 className="text-3xl font-bold text-center mb-12 text-balance">Nossos valores</h2>
+          <h2 className="text-3xl font-extrabold text-center mb-12 text-balance text-secondary">Nossos valores</h2>
         </SectionReveal>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {values.map((v, i) => (
@@ -66,7 +66,7 @@ const Sobre = () => (
     <section className="py-20">
       <div className="container max-w-3xl">
         <SectionReveal>
-          <h2 className="text-3xl font-bold mb-8 text-balance">Nossos diferenciais</h2>
+          <h2 className="text-3xl font-extrabold mb-8 text-balance text-secondary">Nossos diferenciais</h2>
         </SectionReveal>
         <ul className="space-y-4">
           {differentials.map((d, i) => (

@@ -13,7 +13,7 @@ const Header = () => {
   const { pathname } = useLocation();
 
   return (
-    <header className="sticky top-0 z-40 bg-[#1a2840] border-b-2 border-[#e7c30b]">
+    <header className="sticky top-0 z-40 border-b-2 border-gold bg-secondary backdrop-blur">
       <div className="container flex h-16 items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
           <img src="/logo.png" alt="Celsão Auto Peças" className="h-12 w-auto object-contain" />
@@ -25,10 +25,10 @@ const Header = () => {
             <Link
               key={item.path}
               to={item.path}
-              className={`relative py-1 text-sm transition-colors ${
+              className={`relative py-1 text-sm transition-colors hover:text-gold ${
                 pathname === item.path
-                  ? "text-[#e7c30b] font-bold"
-                  : "text-white/65 hover:text-[#e7c30b]"
+                  ? "text-gold font-bold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-gold"
+                  : "text-white/65 font-medium"
               }`}
             >
               {item.label}
@@ -48,14 +48,14 @@ const Header = () => {
 
       {/* Mobile menu */}
       {open && (
-        <nav className="md:hidden border-t border-[#e7c30b] bg-[#1a2840] pb-4">
+        <nav className="md:hidden border-t border-gold/30 bg-secondary pb-4">
           {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
               onClick={() => setOpen(false)}
               className={`block px-6 py-3 text-sm transition-colors ${
-                pathname === item.path ? "text-[#e7c30b] font-bold bg-white/5" : "text-white/65 hover:text-[#e7c30b]"
+                pathname === item.path ? "text-gold font-bold bg-gold/5" : "text-white/65 font-medium"
               }`}
             >
               {item.label}
