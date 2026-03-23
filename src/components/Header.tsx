@@ -15,12 +15,12 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-40 border-b-2 border-gold bg-secondary backdrop-blur">
       <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/" className="flex items-center gap-2 w-32">
           <img src="/logo.png" alt="Celsão Auto Peças" className="h-12 w-auto object-contain" />
         </Link>
 
         {/* Desktop */}
-        <nav className="hidden md:flex justify-center items-center gap-8">
+        <nav className="hidden md:flex flex-1 justify-center items-center gap-8">
           {navItems.map((item) => (
             <Link
               key={item.path}
