@@ -66,7 +66,7 @@ const Sobre = () => (
     <section className="py-20">
       <div className="container max-w-3xl">
         <SectionReveal>
-          <h2 className="text-3xl font-bold mb-8 text-balance">Nossos diferenciais</h2>
+          <h2 className="text-3xl font-extrabold mb-8 text-balance text-secondary">Nossos diferenciais</h2>
         </SectionReveal>
         <ul className="space-y-4">
           {differentials.map((d, i) => (
