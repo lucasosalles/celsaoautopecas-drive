@@ -19,6 +19,8 @@ jobs:
         run: bun run build
       - name: Copy logos to dist
         run: cp -r public/logos dist/logos
+      - name: List dist contents
+        run: find dist -type f
       - name: Install lftp
         run: sudo apt-get install -y lftp
       - name: Deploy via lftp
@@ -31,7 +33,6 @@ jobs:
             set ftp:ssl-allow no;
             open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER;
             mkdir -p /public_html/assets;
-            mkdir -p /public_html/logos;
             mirror -R --verbose dist/ /public_html/;
             quit
           "
