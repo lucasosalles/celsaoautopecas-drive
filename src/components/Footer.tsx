@@ -50,13 +50,13 @@ const Footer = () => (
         <div>
           <h4 className="font-semibold mb-3 text-sm uppercase tracking-wider text-secondary-foreground/50">Redes sociais</h4>
           <div className="flex gap-3">
-            <a href="https://www.facebook.com/celsaoautopecas" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary-foreground/10 text-gold hover:bg-gold hover:text-gold-foreground transition-colors">
+            <a href="https://www.facebook.com/celsaoautopecasoficial" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary-foreground/10 text-gold hover:bg-gold hover:text-gold-foreground transition-colors">
               <Facebook className="h-5 w-5" />
             </a>
             <a href="https://www.instagram.com/celsaoautopecas" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary-foreground/10 text-gold hover:bg-gold hover:text-gold-foreground transition-colors">
               <Instagram className="h-5 w-5" />
             </a>
-            <a href="https://www.youtube.com/celsaoautopecas" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary-foreground/10 text-gold hover:bg-gold hover:text-gold-foreground transition-colors">
+            <a href="https://www.youtube.com/@CelsaoAutoPecas" target="_blank" rel="noopener noreferrer" aria-label="YouTube" className="flex h-10 w-10 items-center justify-center rounded-full bg-secondary-foreground/10 text-gold hover:bg-gold hover:text-gold-foreground transition-colors">
               <Youtube className="h-5 w-5" />
             </a>
           </div>
