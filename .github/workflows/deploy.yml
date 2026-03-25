@@ -17,6 +17,8 @@ jobs:
         run: bun install
       - name: Build
         run: bun run build
+      - name: Copy logos to dist
+        run: cp -r public/logos dist/logos
       - name: Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
