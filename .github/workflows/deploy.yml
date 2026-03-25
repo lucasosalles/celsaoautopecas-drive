@@ -28,9 +28,6 @@ jobs:
           local-dir: ./dist/
           server-dir: /public_html/
           dangerous-clean-slate: true
-          exclude: |
-            **/.git*
-            **/.git*/**
       - name: Deploy logos via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.4
         with:
