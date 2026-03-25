@@ -31,8 +31,8 @@ jobs:
         run: |
           lftp -c "
             set ftp:ssl-allow no;
+            set ftp:passive-mode yes;
             open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER;
-            mkdir -p /public_html/assets;
-            mirror -R --verbose dist/ /public_html/;
+            mirror -R --verbose --no-perms --no-umask dist/ /public_html/;
             quit
           "
