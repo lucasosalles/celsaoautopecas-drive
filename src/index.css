@@ -91,3 +91,18 @@
 .animate-pulse-whatsapp {
   animation: pulse-whatsapp 2s ease-in-out infinite;
 }
+
+@keyframes scroll-marcas {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-scroll-marcas {
+  display: flex;
+  width: max-content;
+  animation: scroll-marcas 40s linear infinite;
+}
+
+.animate-scroll-marcas:hover {
+  animation-play-state: paused;
+}

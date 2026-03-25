@@ -15,12 +15,32 @@ const differentials = [
   { icon: Headphones, title: "Atendimento especializado", desc: "Equipe técnica e consultoria personalizada" },
 ];
 
-const products = [
-  { name: "Par Lanterna Dianteira Âmbar Kombi 1976 a 2014", price: "R$ 110,00", badge: "Lançamento" },
-  { name: "Par Lente Lanterna Dianteira Cristal Kombi 1967 a 1975", price: "R$ 59,90" },
-  { name: "Par Aro Moldura Farol Preto Fusca/Kombi", price: "R$ 28,00" },
-  { name: "Par Lente Lanterna Traseira Rubi Pampa/F100 1982-1986", price: "R$ 55,90" },
-  { name: "Par Lanterna Pisca Dianteira Âmbar Opala Caravan 1975-1979", price: "R$ 349,00", badge: "Exclusivo" },
+const marcas = [
+  { name: "Bosch", logo: "Bosch" },
+  { name: "NGK", logo: "NGK" },
+  { name: "Magneti Marelli", logo: "Magneti Marelli" },
+  { name: "Cofap", logo: "Cofap" },
+  { name: "Nakata", logo: "Nakata" },
+  { name: "Monroe", logo: "Monroe" },
+  { name: "Fras-le", logo: "Fras-le" },
+  { name: "SKF", logo: "SKF" },
+  { name: "Mahle", logo: "Mahle" },
+  { name: "Dayco", logo: "Dayco" },
+  { name: "Continental", logo: "Continental" },
+  { name: "Valeo", logo: "Valeo" },
+  { name: "ACDelco", logo: "ACDelco" },
+  { name: "Delphi", logo: "Delphi" },
+  { name: "Sachs", logo: "Sachs" },
+  { name: "TRW", logo: "TRW" },
+  { name: "LuK", logo: "LuK" },
+  { name: "Gates", logo: "Gates" },
+  { name: "Bendix", logo: "Bendix" },
+  { name: "Varga", logo: "Varga" },
+  { name: "Cobreq", logo: "Cobreq" },
+  { name: "Viemar", logo: "Viemar" },
+  { name: "Urba", logo: "Urba" },
+  { name: "Brosol", logo: "Brosol" },
+  { name: "Heliar", logo: "Heliar" },
 ];
 
 const stores = [
@@ -115,26 +135,32 @@ const Index = () => (
       </div>
     </section>
 
-    {/* Featured Products */}
-    <section className="py-20 bg-muted">
-      <div className="container">
+    {/* Featured Products / Marcas */}
+    <section className="py-20 bg-muted overflow-hidden">
+      <div className="container mb-12">
         <SectionReveal>
-          <h2 className="text-3xl font-extrabold text-center mb-12 text-balance text-secondary">Nossos Parceiros</h2>
+          <h2 className="text-3xl font-extrabold text-center text-balance text-secondary">Nossos Parceiros</h2>
         </SectionReveal>
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
-          {products.map((p, i) => (
-            <SectionReveal key={p.name} delay={i * 0.08} className="group relative rounded-xl border border-border bg-white p-6 shadow-sm transition-shadow duration-300 hover:shadow-md flex flex-col">
-              {p.badge && (
-                <span className="absolute top-4 right-4 rounded-full bg-gold px-3 py-1 text-xs font-semibold text-gold-foreground">
-                  {p.badge}
+      </div>
+      
+      <div className="relative w-full overflow-hidden">
+        {/* Gradientes laterais para suavizar as bordas da animação */}
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-muted to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-muted to-transparent z-10 pointer-events-none"></div>
+        
+        <div className="animate-scroll-marcas">
+          {/* Duplicamos a lista para criar o efeito infinito sem cortes */}
+          {[...marcas, ...marcas, ...marcas].map((m, i) => (
+            <div 
+              key={`${m.name}-${i}`} 
+              className="px-8 flex-shrink-0 flex items-center justify-center group"
+            >
+              <div className="w-40 h-24 rounded-xl border border-border bg-white shadow-sm flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:border-primary/20 group-hover:scale-105">
+                <span className="text-lg font-bold text-muted-foreground group-hover:text-primary transition-colors">
+                  {m.logo}
                 </span>
-              )}
-              <div className="mb-4 h-32 rounded-lg bg-muted flex items-center justify-center">
-                <span className="text-3xl">🔧</span>
               </div>
-              <h3 className="text-sm font-semibold text-foreground mb-2 flex-1 text-pretty">{p.name}</h3>
-              <p className="text-lg font-bold text-primary">{p.price}</p>
-            </SectionReveal>
+            </div>
           ))}
         </div>
       </div>
