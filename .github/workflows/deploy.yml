@@ -30,6 +30,8 @@ jobs:
           lftp -c "
             set ftp:ssl-allow no;
             open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER;
-            mirror -R --delete --verbose dist/ /public_html/;
+            mkdir -p /public_html/assets;
+            mkdir -p /public_html/logos;
+            mirror -R --verbose dist/ /public_html/;
             quit
           "
