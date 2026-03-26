@@ -69,7 +69,7 @@ const HeroCarrossel = () => {
   }, []);
 
   return (
-    <div className="relative overflow-hidden" style={{ height: "280px", border: "1px solid rgba(231,195,11,0.25)", borderRadius: 0 }}>
+    <div className="relative overflow-hidden" style={{ height: "280px", border: "none", borderRadius: 0 }}>
       <div
         className="flex h-full transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${atual * 100}%)` }}
@@ -103,6 +103,7 @@ const HeroCarrossel = () => {
           />
         ))}
       </div>
+      <div style={{ position: "absolute", top: 0, left: 0, width: "60px", height: "100%", background: "linear-gradient(to right, #0f1520, transparent)", zIndex: 1 }} />
     </div>
   );
 };
@@ -177,7 +178,7 @@ const Index = () => (
     {/* Benefits Bar */}
     <section className="bg-gold py-6">
       <div className="container">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center justify-items-center">
           {benefits.map((b) => (
             <div key={b.text} className="flex items-center gap-3 justify-center text-center md:text-left">
               <b.icon className="h-5 w-5 shrink-0 text-gold-foreground" />

@@ -15,7 +15,7 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-40 border-b-2 border-gold bg-secondary backdrop-blur">
       <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 w-32">
+        <Link to="/" className="flex items-center gap-2 w-40 px-3 py-1" style={{ backgroundColor: "#e7c30b" }}>
           <img src="/logo.png" alt="Celsão Auto Peças" className="h-16 w-auto object-contain" style={{ transform: 'scale(1.35)', transformOrigin: 'left center' }} />
         </Link>
 
