@@ -111,16 +111,8 @@ const HeroCarrossel = () => {
       {/* Degradê esquerda */}
       <div
         style={{
-          position: "absolute", top: 0, left: 0, width: "200px", height: "100%",
-          background: "linear-gradient(to right, #0f1520 0%, rgba(15,21,32,0.85) 40%, rgba(15,21,32,0.4) 70%, transparent 100%)",
-          zIndex: 3, pointerEvents: "none",
-        }}
-      />
-      {/* Degradê direita */}
-      <div
-        style={{
-          position: "absolute", top: 0, right: 0, width: "60px", height: "100%",
-          background: "linear-gradient(to left, #0f1520 0%, transparent 100%)",
+          position: "absolute", top: 0, left: 0, width: "180px", height: "100%",
+          background: "linear-gradient(to right, #0f1520 0%, rgba(15,21,32,0.7) 50%, transparent 100%)",
           zIndex: 3, pointerEvents: "none",
         }}
       />
@@ -143,7 +135,8 @@ const HeroCarrossel = () => {
             <img
               src={slide.imagem}
               alt={slide.cidade}
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full"
+              style={{ objectFit: "cover", objectPosition: "top center" }}
             />
             {/* Overlay escuro de baixo */}
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%)" }} />
@@ -161,7 +154,8 @@ const HeroCarrossel = () => {
                 padding: "6px 12px",
                 fontSize: "11px",
                 textDecoration: "none",
-                zIndex: 4,
+                zIndex: 10,
+                position: "absolute",
               }}
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="#e7c30b">
