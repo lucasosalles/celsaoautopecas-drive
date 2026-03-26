@@ -107,12 +107,28 @@ const HeroCarrossel = () => {
   }, []);
 
   return (
-    <div className="relative overflow-hidden" style={{ height: "100%", minHeight: "400px" }}>
+    <div style={{ height: "100%", minHeight: "400px", margin: "-80px -0px -80px 0", position: "relative", overflow: "hidden" }}>
       {/* Degradê esquerda */}
       <div
         style={{
-          position: "absolute", top: 0, left: 0, width: "120px", height: "100%",
-          background: "linear-gradient(to right, #0f1520 0%, rgba(15,21,32,0.4) 60%, transparent 100%)",
+          position: "absolute", top: 0, left: 0, width: "200px", height: "100%",
+          background: "linear-gradient(to right, #0f1520 0%, rgba(15,21,32,0.85) 40%, rgba(15,21,32,0.4) 70%, transparent 100%)",
+          zIndex: 3, pointerEvents: "none",
+        }}
+      />
+      {/* Degradê direita */}
+      <div
+        style={{
+          position: "absolute", top: 0, right: 0, width: "60px", height: "100%",
+          background: "linear-gradient(to left, #0f1520 0%, transparent 100%)",
+          zIndex: 3, pointerEvents: "none",
+        }}
+      />
+      {/* Degradê topo */}
+      <div
+        style={{
+          position: "absolute", top: 0, left: 0, right: 0, height: "80px",
+          background: "linear-gradient(to bottom, #0f1520 0%, transparent 100%)",
           zIndex: 3, pointerEvents: "none",
         }}
       />
@@ -182,9 +198,9 @@ const Index = () => (
     {/* Hero */}
     <section
       className="relative overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #1a2840 0%, #0f1520 60%, #1a0c0c 100%)" }}
+      style={{ overflow: "hidden", background: "linear-gradient(135deg, #1a2840 0%, #0f1520 60%, #1a0c0c 100%)" }}
     >
-      <div className="container py-20">
+      <div className="container">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
 
           {/* Esquerda */}
@@ -228,9 +244,9 @@ const Index = () => (
           </div>
 
           {/* Direita: carrossel */}
-          <SectionReveal delay={0.2}>
+          <div className="hidden md:block" style={{ margin: "-80px 0", height: "calc(100% + 160px)", minHeight: "500px" }}>
             <HeroCarrossel />
-          </SectionReveal>
+          </div>
 
         </div>
       </div>
