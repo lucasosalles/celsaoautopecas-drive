@@ -100,7 +100,7 @@
 .animate-scroll-marcas {
   display: flex;
   width: max-content;
-  animation: scroll-marcas 40s linear infinite;
+  animation: scroll-marcas 20s linear infinite;
 }
 
 .animate-scroll-marcas:hover {

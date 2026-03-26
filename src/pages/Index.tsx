@@ -44,9 +44,9 @@ const marcas = [
 ];
 
 const stores = [
-  { city: "Bom Jesus dos Perdões", address: "Av. Santos Dumont, 425", tel: "(11) 95258-7563", telRaw: "+5511952587563", hours: "Seg–Sex 08h–18h | Sáb 08h–13h" },
-  { city: "Nazaré Paulista", address: "Rua José Gonçalves, 332", tel: "(11) 95259-8021", telRaw: "+5511952598021", hours: "Seg–Sex 08h–18h | Sáb 08h–13h" },
-  { city: "Atibaia", address: "Praça 24 de Junho, 40", tel: "(11) 5197-1313", telRaw: "+551151971313", hours: "Seg–Sex 08h–18h | Sáb 08h–13h" },
+  { city: "Bom Jesus dos Perdões", address: "Av. Santos Dumont, 425", tel: "(11) 93299-7159", telRaw: "+5511932997159", hours: "Seg–Sex 08h–18h | Sáb 08h–13h" },
+  { city: "Nazaré Paulista", address: "Rua José Gonçalves, 332", tel: "(11) 93299-7159", telRaw: "+5511932997159", hours: "Seg–Sex 08h–18h | Sáb 08h–13h" },
+  { city: "Atibaia", address: "Praça 24 de Junho, 40", tel: "(11) 93299-7159", telRaw: "+5511932997159", hours: "Seg–Sex 08h–18h | Sáb 08h–13h" },
 ];
 
 const Index = () => (
