@@ -100,9 +100,15 @@
 .animate-scroll-marcas {
   display: flex;
   width: max-content;
-  animation: scroll-marcas 20s linear infinite;
+  animation: scroll-marcas 50s linear infinite;
 }
 
 .animate-scroll-marcas:hover {
   animation-play-state: paused;
+}
+
+.animate-scroll-marcas > div:hover {
+  transform: scale(1.1);
+  transition: transform 0.3s ease;
+  z-index: 1;
 }

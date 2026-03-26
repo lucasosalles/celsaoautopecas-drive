@@ -16,31 +16,32 @@ const differentials = [
 ];
 
 const marcas = [
-  { name: "Bosch", logo: "Bosch" },
-  { name: "NGK", logo: "NGK" },
-  { name: "Magneti Marelli", logo: "Magneti Marelli" },
-  { name: "Cofap", logo: "Cofap" },
-  { name: "Nakata", logo: "Nakata" },
-  { name: "Monroe", logo: "Monroe" },
-  { name: "Fras-le", logo: "Fras-le" },
-  { name: "SKF", logo: "SKF" },
-  { name: "Mahle", logo: "Mahle" },
-  { name: "Dayco", logo: "Dayco" },
-  { name: "Continental", logo: "Continental" },
-  { name: "Valeo", logo: "Valeo" },
-  { name: "ACDelco", logo: "ACDelco" },
-  { name: "Delphi", logo: "Delphi" },
-  { name: "Sachs", logo: "Sachs" },
-  { name: "TRW", logo: "TRW" },
-  { name: "LuK", logo: "LuK" },
-  { name: "Gates", logo: "Gates" },
-  { name: "Bendix", logo: "Bendix" },
-  { name: "Varga", logo: "Varga" },
-  { name: "Cobreq", logo: "Cobreq" },
-  { name: "Viemar", logo: "Viemar" },
-  { name: "Urba", logo: "Urba" },
-  { name: "Brosol", logo: "Brosol" },
-  { name: "Heliar", logo: "Heliar" },
+  { name: "3RHO", arquivo: "3rho.png" },
+  { name: "Axios", arquivo: "axios.png" },
+  { name: "Bosch", arquivo: "bosch.png" },
+  { name: "Cobreq", arquivo: "cobreq.png" },
+  { name: "Cofap", arquivo: "cofap.png" },
+  { name: "Continental", arquivo: "continental.png" },
+  { name: "DS", arquivo: "ds.png" },
+  { name: "Fania", arquivo: "fania.png" },
+  { name: "Fras-le", arquivo: "frasle.png" },
+  { name: "Hipper Freios", arquivo: "hipper freios.png" },
+  { name: "IKS", arquivo: "iks.png" },
+  { name: "Indisa", arquivo: "indisa.png" },
+  { name: "IRB", arquivo: "irb.png" },
+  { name: "Magneti Marelli", arquivo: "magneti marelli.png" },
+  { name: "MTE", arquivo: "mte.png" },
+  { name: "Nakata", arquivo: "nakata.png" },
+  { name: "NGK", arquivo: "ngk.png" },
+  { name: "Perfect", arquivo: "perfect.png" },
+  { name: "Roltens", arquivo: "roltens.png" },
+  { name: "Sabó", arquivo: "sabo.png" },
+  { name: "Sampel", arquivo: "sampel.png" },
+  { name: "Taranto", arquivo: "taranto.png" },
+  { name: "Tecfil", arquivo: "tecfil.png" },
+  { name: "TSA", arquivo: "tsa.png" },
+  { name: "Valclei", arquivo: "valclei.png" },
+  { name: "Viemar", arquivo: "viemar.png" },
 ];
 
 const stores = [
@@ -155,10 +156,16 @@ const Index = () => (
               key={`${m.name}-${i}`} 
               className="px-8 flex-shrink-0 flex items-center justify-center group"
             >
-              <div className="w-40 h-24 rounded-xl border border-border bg-white shadow-sm flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:border-primary/20 group-hover:scale-105">
-                <span className="text-lg font-bold text-muted-foreground group-hover:text-primary transition-colors">
-                  {m.logo}
-                </span>
+              <div className="w-40 h-24 rounded-xl border border-border bg-white shadow-sm flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:border-primary/20 group-hover:scale-105 p-3">
+                <img 
+                  src={`/logos/${m.arquivo}`} 
+                  alt={m.name} 
+                  className="max-w-full max-h-full object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                  onError={(e) => {
+                    const target = e.target as HTMLImageElement;
+                    target.style.display = 'none';
+                  }}
+                />
               </div>
             </div>
           ))}
