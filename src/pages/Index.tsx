@@ -107,7 +107,7 @@ const HeroCarrossel = () => {
   }, []);
 
   return (
-    <div style={{ height: "100%", minHeight: "400px", margin: "-80px -0px -80px 0", position: "relative", overflow: "hidden" }}>
+    <div style={{ height: "100%", width: "100%", position: "relative", overflow: "hidden" }}>
       {/* Degradê esquerda */}
       <div
         style={{
@@ -155,7 +155,6 @@ const HeroCarrossel = () => {
                 fontSize: "11px",
                 textDecoration: "none",
                 zIndex: 10,
-                position: "absolute",
               }}
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="#e7c30b">
@@ -192,10 +191,10 @@ const Index = () => (
     {/* Hero */}
     <section
       className="relative overflow-hidden"
-      style={{ overflow: "hidden", background: "linear-gradient(135deg, #1a2840 0%, #0f1520 60%, #1a0c0c 100%)" }}
+      style={{ position: "relative", overflow: "hidden", background: "linear-gradient(135deg, #1a2840 0%, #0f1520 60%, #1a0c0c 100%)" }}
     >
-      <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+      <div className="container relative z-10 py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 items-center">
 
           {/* Esquerda */}
           <div className="flex flex-col gap-6">
@@ -238,7 +237,7 @@ const Index = () => (
           </div>
 
           {/* Direita: carrossel */}
-          <div className="hidden md:block" style={{ margin: "-80px 0", height: "calc(100% + 160px)", minHeight: "500px" }}>
+          <div className="hidden md:block absolute top-0 right-0 h-full" style={{ width: "50%" }}>
             <HeroCarrossel />
           </div>
 
