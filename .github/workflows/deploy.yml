@@ -19,20 +19,13 @@ jobs:
         run: bun run build
       - name: Copy logos to dist
         run: cp -r public/logos dist/logos
-      - name: List dist contents
-        run: find dist -type f
-      - name: Install lftp
-        run: sudo apt-get install -y lftp
-      - name: Deploy via lftp
+      - name: Install sshpass
+        run: sudo apt-get install -y sshpass
+      - name: Deploy via rsync
         env:
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
         run: |
-          lftp -c "
-            set ftp:ssl-allow no;
-            set ftp:passive-mode yes;
-            open -u $FTP_USERNAME,$FTP_PASSWORD $FTP_SERVER;
-            mirror -R --verbose --no-perms --no-umask dist/ /public_html/;
-            quit
-          "
+          sshpass -p "$SSH_PASSWORD" rsync -avz --delete \
+            -e "ssh -p 65002 -o StrictHostKeyChecking=no" \
+            dist/ \
+            u641304150@212.85.6.3:/home/u641304150/domains/celsaoautopecas.com/public_html/
