@@ -111,16 +111,8 @@ const HeroCarrossel = () => {
       {/* Degradê esquerda */}
       <div
         style={{
-          position: "absolute", top: 0, left: 0, width: "180px", height: "100%",
-          background: "linear-gradient(to right, #0f1520 0%, rgba(15,21,32,0.7) 50%, transparent 100%)",
-          zIndex: 3, pointerEvents: "none",
-        }}
-      />
-      {/* Degradê topo */}
-      <div
-        style={{
-          position: "absolute", top: 0, left: 0, right: 0, height: "80px",
-          background: "linear-gradient(to bottom, #0f1520 0%, transparent 100%)",
+          position: "absolute", top: 0, left: 0, width: "220px", height: "100%",
+          background: "linear-gradient(to right, #0f1520 0%, rgba(15,21,32,0.8) 40%, rgba(15,21,32,0.3) 70%, transparent 100%)",
           zIndex: 3, pointerEvents: "none",
         }}
       />
@@ -136,7 +128,7 @@ const HeroCarrossel = () => {
               src={slide.imagem}
               alt={slide.cidade}
               className="w-full h-full"
-              style={{ objectFit: "cover", objectPosition: "top center" }}
+              style={{ objectFit: "cover", objectPosition: "center center" }}
             />
             {/* Overlay escuro de baixo */}
             <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%)" }} />
@@ -191,13 +183,16 @@ const Index = () => (
     {/* Hero */}
     <section
       className="relative overflow-hidden"
-      style={{ position: "relative", overflow: "hidden", background: "linear-gradient(135deg, #1a2840 0%, #0f1520 60%, #1a0c0c 100%)" }}
+      style={{ background: "linear-gradient(135deg, #1a2840 0%, #0f1520 60%, #1a0c0c 100%)", minHeight: "500px" }}
     >
-      <div className="container relative z-10 py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 items-center">
+      {/* Carrossel no fundo direito */}
+      <div className="absolute top-0 right-0 h-full hidden md:block" style={{ width: "55%" }}>
+        <HeroCarrossel />
+      </div>
 
-          {/* Esquerda */}
-          <div className="flex flex-col gap-6">
+      {/* Conteúdo sobreposto à esquerda */}
+      <div className="relative z-10 container py-20">
+        <div className="max-w-xl flex flex-col gap-6">
             <SectionReveal>
               <span
                 className="inline-block px-4 py-1.5 text-xs font-semibold text-gold"
@@ -234,13 +229,6 @@ const Index = () => (
                 <StatusAtendente />
               </div>
             </SectionReveal>
-          </div>
-
-          {/* Direita: carrossel */}
-          <div className="hidden md:block absolute top-0 right-0 h-full" style={{ width: "50%" }}>
-            <HeroCarrossel />
-          </div>
-
         </div>
       </div>
     </section>
