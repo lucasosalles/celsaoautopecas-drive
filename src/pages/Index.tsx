@@ -1,3 +1,4 @@
+import React from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Truck, RefreshCw, CreditCard, ShieldCheck, Award, Clock, Headphones, Mail, Phone, MapPin } from "lucide-react";
@@ -50,6 +51,62 @@ const stores = [
   { city: "Atibaia", address: "Praça 24 de Junho, 40", tel: "(11) 93299-7159", telRaw: "+5511932997159", hours: "Seg–Sex 08h–18h | Sáb 08h–13h" },
 ];
 
+const heroSlides = [
+  { icon: "💡", titulo: "Faróis e Lanternas", sub: "+800 modelos disponíveis", bg: "rgba(231,195,11,0.07)" },
+  { icon: "🔩", titulo: "Suspensão e Freios", sub: "Marcas originais garantidas", bg: "rgba(220,27,23,0.07)" },
+  { icon: "🚗", titulo: "Retrovisores e Acessórios", sub: "Entrega para todo o Brasil", bg: "rgba(26,40,64,0.5)" },
+  { icon: "⚙️", titulo: "Motor e Transmissão", sub: "3 lojas em São Paulo", bg: "rgba(231,195,11,0.07)" },
+];
+
+const HeroCarrossel = () => {
+  const [atual, setAtual] = React.useState(0);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setAtual((prev) => (prev + 1) % heroSlides.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="relative overflow-hidden" style={{ height: "280px", border: "1px solid rgba(231,195,11,0.25)", borderRadius: 0 }}>
+      <div
+        className="flex h-full transition-transform duration-700 ease-in-out"
+        style={{ transform: `translateX(-${atual * 100}%)` }}
+      >
+        {heroSlides.map((slide, i) => (
+          <div
+            key={i}
+            className="flex-shrink-0 w-full h-full flex flex-col items-center justify-center gap-3"
+            style={{ background: slide.bg, minWidth: "100%" }}
+          >
+            <span className="text-5xl">{slide.icon}</span>
+            <span className="text-white/60 text-sm">{slide.titulo}</span>
+            <span className="text-xs font-bold" style={{ color: "rgba(231,195,11,0.8)" }}>{slide.sub}</span>
+          </div>
+        ))}
+      </div>
+
+      {/* Badge */}
+      <div className="absolute top-3 right-3 px-3 py-1 text-xs font-extrabold" style={{ backgroundColor: "#e7c30b", color: "#1a1a1a" }}>
+        +5.000 itens
+      </div>
+
+      {/* Dots */}
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+        {heroSlides.map((_, i) => (
+          <button
+            key={i}
+            onClick={() => setAtual(i)}
+            className="w-1.5 h-1.5 rounded-full transition-all duration-300"
+            style={{ backgroundColor: i === atual ? "#e7c30b" : "rgba(255,255,255,0.3)" }}
+          />
+        ))}
+      </div>
+    </div>
+  );
+};
+
 const Index = () => (
   <>
     <Helmet>
@@ -59,39 +116,61 @@ const Index = () => (
 
     {/* Hero */}
     <section
-      className="relative min-h-[85vh] flex items-center overflow-hidden"
+      className="relative overflow-hidden"
       style={{ background: "linear-gradient(135deg, #1a2840 0%, #0f1520 60%, #1a0c0c 100%)" }}
     >
-      <div className="container relative z-10 py-20">
-        <SectionReveal>
-          <span
-            className="inline-block px-4 py-1.5 text-xs font-semibold text-gold mb-6"
-            style={{ border: "1.5px solid hsl(var(--gold))", borderRadius: 0 }}
-          >
-            Há mais de 30 anos no mercado
-          </span>
-        </SectionReveal>
-        <SectionReveal delay={0.1}>
-          <h1 className="text-4xl md:text-6xl font-bold max-w-2xl leading-[1.1] text-balance mb-6 text-white">
-            Confiança e Tradição para o seu Veículo
-          </h1>
-        </SectionReveal>
-        <SectionReveal delay={0.2}>
-          <p className="text-lg max-w-xl mb-8 text-pretty leading-relaxed text-white/75">
-            Oferecemos as melhores peças automotivas do mercado com garantia de procedência. Atendimento especializado e consultoria técnica para manter seu veículo sempre em perfeito estado.
-          </p>
-        </SectionReveal>
-        <SectionReveal delay={0.3}>
-          <div className="flex flex-wrap gap-4">
-            <Link
-              to="/contato"
-              className="inline-flex items-center gap-2 px-6 py-3 font-extrabold transition-all duration-200 hover:brightness-110 active:scale-[0.97] shadow-lg"
-              style={{ backgroundColor: "#e7c30b", color: "#1a1a1a", borderRadius: 0 }}
-            >
-              Fale conosco
-            </Link>
+      <div className="container py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+
+          {/* Esquerda */}
+          <div className="flex flex-col gap-6">
+            <SectionReveal>
+              <span
+                className="inline-block px-4 py-1.5 text-xs font-semibold text-gold"
+                style={{ border: "1.5px solid hsl(var(--gold))", borderRadius: 0 }}
+              >
+                Há mais de 30 anos no mercado
+              </span>
+            </SectionReveal>
+            <SectionReveal delay={0.1}>
+              <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
+                Confiança e Tradição<br />para o seu Veículo
+              </h1>
+            </SectionReveal>
+            <SectionReveal delay={0.2}>
+              <p className="text-white/65 text-base leading-relaxed">
+                Oferecemos as melhores peças automotivas do mercado com garantia de procedência. Atendimento especializado e consultoria técnica para manter seu veículo sempre em perfeito estado.
+              </p>
+            </SectionReveal>
+            <SectionReveal delay={0.3}>
+              <div className="flex flex-col gap-2">
+                <a
+                  href="https://wa.me/5511932997159?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 px-6 py-3 font-extrabold text-white transition-all duration-200 hover:brightness-110 active:scale-[0.97] w-fit"
+                  style={{ backgroundColor: "#25d366", borderRadius: 0 }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.852L.057 23.5l5.805-1.524A11.928 11.928 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.013-1.374l-.36-.214-3.724.977.994-3.634-.235-.374A9.818 9.818 0 1112 21.818z"/>
+                  </svg>
+                  Falar com atendente
+                </a>
+                <div className="flex items-center gap-2">
+                  <span className="inline-block w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: "#25d366" }}></span>
+                  <span className="text-white/45 text-xs">Atendente disponível agora</span>
+                </div>
+              </div>
+            </SectionReveal>
           </div>
-        </SectionReveal>
+
+          {/* Direita: carrossel */}
+          <SectionReveal delay={0.2}>
+            <HeroCarrossel />
+          </SectionReveal>
+
+        </div>
       </div>
     </section>
 
