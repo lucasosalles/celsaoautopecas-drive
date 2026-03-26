@@ -51,11 +51,49 @@ const stores = [
   { city: "Atibaia", address: "Praça 24 de Junho, 40", tel: "(11) 93299-7159", telRaw: "+5511932997159", hours: "Seg–Sex 08h–18h | Sáb 08h–13h" },
 ];
 
+const StatusAtendente = () => {
+  const agora = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" }));
+  const hora = agora.getHours();
+  const minuto = agora.getMinutes();
+  const diaSemana = agora.getDay();
+  const horaDecimal = hora + minuto / 60;
+
+  const online =
+    (diaSemana >= 1 && diaSemana <= 5 && horaDecimal >= 8 && horaDecimal < 18) ||
+    (diaSemana === 6 && horaDecimal >= 8 && horaDecimal < 13);
+
+  return (
+    <div className="flex items-center gap-2">
+      <span
+        className="inline-block w-2 h-2 rounded-full"
+        style={{ backgroundColor: online ? "#25d366" : "#dc1b17" }}
+      />
+      <span className="text-xs" style={{ color: "rgba(255,255,255,0.45)" }}>
+        {online ? "Atendente disponível agora" : "Fora do horário de atendimento"}
+      </span>
+    </div>
+  );
+};
+
 const heroSlides = [
-  { icon: "💡", titulo: "Faróis e Lanternas", sub: "+800 modelos disponíveis", bg: "rgba(231,195,11,0.07)" },
-  { icon: "🔩", titulo: "Suspensão e Freios", sub: "Marcas originais garantidas", bg: "rgba(220,27,23,0.07)" },
-  { icon: "🚗", titulo: "Retrovisores e Acessórios", sub: "Entrega para todo o Brasil", bg: "rgba(26,40,64,0.5)" },
-  { icon: "⚙️", titulo: "Motor e Transmissão", sub: "3 lojas em São Paulo", bg: "rgba(231,195,11,0.07)" },
+  {
+    imagem: "/loja-atibaia.jpg",
+    cidade: "Atibaia",
+    endereco: "Praça 24 de Junho, 40",
+    maps: "https://maps.google.com/?q=Praça+24+de+Junho,+40,+Atibaia,+SP",
+  },
+  {
+    imagem: "/loja-bom-jesus.jpg",
+    cidade: "Bom Jesus dos Perdões",
+    endereco: "Av. Santos Dumont, 425",
+    maps: "https://maps.google.com/?q=Av.+Santos+Dumont,+425,+Bom+Jesus+dos+Perdões,+SP",
+  },
+  {
+    imagem: "/loja-nazare.jpg",
+    cidade: "Nazaré Paulista",
+    endereco: "R. José Gonçalves, 332",
+    maps: "https://maps.google.com/?q=Rua+José+Gonçalves,+332,+Nazaré+Paulista,+SP",
+  },
 ];
 
 const HeroCarrossel = () => {
@@ -64,46 +102,72 @@ const HeroCarrossel = () => {
   React.useEffect(() => {
     const interval = setInterval(() => {
       setAtual((prev) => (prev + 1) % heroSlides.length);
-    }, 3000);
+    }, 3500);
     return () => clearInterval(interval);
   }, []);
 
   return (
-    <div className="relative overflow-hidden h-full" style={{ minHeight: "400px", marginTop: "-80px", marginBottom: "-80px" }}>
+    <div className="relative overflow-hidden" style={{ height: "100%", minHeight: "400px" }}>
+      {/* Degradê esquerda */}
+      <div
+        style={{
+          position: "absolute", top: 0, left: 0, width: "120px", height: "100%",
+          background: "linear-gradient(to right, #0f1520 0%, rgba(15,21,32,0.4) 60%, transparent 100%)",
+          zIndex: 3, pointerEvents: "none",
+        }}
+      />
+
+      {/* Slides */}
       <div
         className="flex h-full transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${atual * 100}%)` }}
       >
         {heroSlides.map((slide, i) => (
-          <div
-            key={i}
-            className="flex-shrink-0 w-full h-full flex flex-col items-center justify-center gap-3"
-            style={{ background: slide.bg, minWidth: "100%", minHeight: "100%" }}
-          >
-            <span className="text-5xl">{slide.icon}</span>
-            <span className="text-white/60 text-sm">{slide.titulo}</span>
-            <span className="text-xs font-bold" style={{ color: "rgba(231,195,11,0.8)" }}>{slide.sub}</span>
+          <div key={i} className="relative flex-shrink-0 w-full h-full" style={{ minWidth: "100%" }}>
+            <img
+              src={slide.imagem}
+              alt={slide.cidade}
+              className="w-full h-full object-cover object-center"
+            />
+            {/* Overlay escuro de baixo */}
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%)" }} />
+            {/* Legenda clicável */}
+            <a
+              href={slide.maps}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="absolute flex items-center gap-2 font-bold"
+              style={{
+                top: "12px", right: "12px",
+                background: "rgba(0,0,0,0.65)",
+                border: "1px solid rgba(231,195,11,0.7)",
+                color: "#e7c30b",
+                padding: "6px 12px",
+                fontSize: "11px",
+                textDecoration: "none",
+                zIndex: 4,
+              }}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#e7c30b">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              {slide.cidade} · {slide.endereco}
+            </a>
           </div>
         ))}
       </div>
 
-      {/* Badge */}
-      <div className="absolute top-3 right-3 px-3 py-1 text-xs font-extrabold" style={{ backgroundColor: "#e7c30b", color: "#1a1a1a" }}>
-        +5.000 itens
-      </div>
-
       {/* Dots */}
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5">
+      <div className="absolute flex gap-1.5" style={{ bottom: "12px", left: "50%", transform: "translateX(-50%)", zIndex: 4 }}>
         {heroSlides.map((_, i) => (
           <button
             key={i}
             onClick={() => setAtual(i)}
             className="w-1.5 h-1.5 rounded-full transition-all duration-300"
-            style={{ backgroundColor: i === atual ? "#e7c30b" : "rgba(255,255,255,0.3)" }}
+            style={{ backgroundColor: i === atual ? "#e7c30b" : "rgba(255,255,255,0.4)" }}
           />
         ))}
       </div>
-      <div style={{ position: "absolute", top: 0, left: 0, width: "120px", height: "100%", background: "linear-gradient(to right, #0f1520 0%, transparent 100%)", zIndex: 1 }} />
     </div>
   );
 };
@@ -158,10 +222,7 @@ const Index = () => (
                   </svg>
                   Falar com atendente
                 </a>
-                <div className="flex items-center gap-2">
-                  <span className="inline-block w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: "#25d366" }}></span>
-                  <span className="text-white/45 text-xs">Atendente disponível agora</span>
-                </div>
+                <StatusAtendente />
               </div>
             </SectionReveal>
           </div>
