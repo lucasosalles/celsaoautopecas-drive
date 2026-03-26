@@ -69,7 +69,7 @@ const HeroCarrossel = () => {
   }, []);
 
   return (
-    <div className="relative overflow-hidden" style={{ height: "280px", border: "none", borderRadius: 0 }}>
+    <div className="relative overflow-hidden h-full" style={{ minHeight: "400px", marginTop: "-80px", marginBottom: "-80px" }}>
       <div
         className="flex h-full transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${atual * 100}%)` }}
@@ -78,7 +78,7 @@ const HeroCarrossel = () => {
           <div
             key={i}
             className="flex-shrink-0 w-full h-full flex flex-col items-center justify-center gap-3"
-            style={{ background: slide.bg, minWidth: "100%" }}
+            style={{ background: slide.bg, minWidth: "100%", minHeight: "100%" }}
           >
             <span className="text-5xl">{slide.icon}</span>
             <span className="text-white/60 text-sm">{slide.titulo}</span>
@@ -103,7 +103,7 @@ const HeroCarrossel = () => {
           />
         ))}
       </div>
-      <div style={{ position: "absolute", top: 0, left: 0, width: "60px", height: "100%", background: "linear-gradient(to right, #0f1520, transparent)", zIndex: 1 }} />
+      <div style={{ position: "absolute", top: 0, left: 0, width: "120px", height: "100%", background: "linear-gradient(to right, #0f1520 0%, transparent 100%)", zIndex: 1 }} />
     </div>
   );
 };

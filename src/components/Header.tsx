@@ -13,9 +13,9 @@ const Header = () => {
   const { pathname } = useLocation();
 
   return (
-    <header className="sticky top-0 z-40 border-b-2 border-gold bg-secondary backdrop-blur">
+    <header className="sticky top-0 z-40 border-b-2 border-gold-foreground/20 bg-gold">
       <div className="container flex h-16 items-center justify-between">
-        <Link to="/" className="flex items-center gap-2 w-40 px-3 py-1" style={{ backgroundColor: "#e7c30b" }}>
+        <Link to="/" className="flex items-center gap-2 w-40 px-3 py-1">
           <img src="/logo.png" alt="Celsão Auto Peças" className="h-16 w-auto object-contain" style={{ transform: 'scale(1.35)', transformOrigin: 'left center' }} />
         </Link>
 
@@ -25,10 +25,10 @@ const Header = () => {
             <Link
               key={item.path}
               to={item.path}
-              className={`relative py-1 text-sm transition-colors hover:text-gold ${
+              className={`relative py-1 text-sm transition-colors hover:text-gold-foreground ${
                 pathname === item.path
-                  ? "text-gold font-bold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-gold"
-                  : "text-white/65 font-medium"
+                  ? "text-gold-foreground font-bold after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:bg-gold-foreground"
+                  : "text-gold-foreground/60 font-medium"
               }`}
             >
               {item.label}
@@ -39,7 +39,7 @@ const Header = () => {
         {/* Mobile toggle */}
         <button
           onClick={() => setOpen(!open)}
-          className="md:hidden p-2 text-white/65"
+          className="md:hidden p-2 text-gold-foreground/70"
           aria-label="Menu"
         >
           {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -48,14 +48,14 @@ const Header = () => {
 
       {/* Mobile menu */}
       {open && (
-        <nav className="md:hidden border-t border-gold/30 bg-secondary pb-4">
+        <nav className="md:hidden border-t border-gold-foreground/20 bg-gold pb-4">
           {navItems.map((item) => (
             <Link
               key={item.path}
               to={item.path}
               onClick={() => setOpen(false)}
               className={`block px-6 py-3 text-sm transition-colors ${
-                pathname === item.path ? "text-gold font-bold bg-gold/5" : "text-white/65 font-medium"
+                pathname === item.path ? "text-gold-foreground font-bold bg-gold-foreground/5" : "text-gold-foreground/60 font-medium"
               }`}
             >
               {item.label}
