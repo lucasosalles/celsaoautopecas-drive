@@ -110,7 +110,7 @@ const HeroCarrossel = () => {
 const Index = () => (
   <>
     <Helmet>
-      <title>Celsão Auto Peças | Autopeças em Atibaia, Nazaré Paulista e Bom Jesus dos Perdões</title>
+      <title>Celsão Auto Peças</title>
       <meta name="description" content="Há mais de 30 anos oferecendo as melhores autopeças. Faróis, lanternas, retrovisores e acessórios. 3 lojas em SP. Entrega para todo o Brasil." />
     </Helmet>
 
