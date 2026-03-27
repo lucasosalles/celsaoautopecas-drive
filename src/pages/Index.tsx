@@ -107,17 +107,7 @@ const HeroCarrossel = () => {
   }, []);
 
   return (
-    <div style={{ height: "100%", width: "100%", position: "relative", overflow: "hidden" }}>
-      {/* Degradê esquerda */}
-      <div
-        style={{
-          position: "absolute", top: 0, left: 0, width: "220px", height: "100%",
-          background: "linear-gradient(to right, #0f1520 0%, rgba(15,21,32,0.8) 40%, rgba(15,21,32,0.3) 70%, transparent 100%)",
-          zIndex: 3, pointerEvents: "none",
-        }}
-      />
-
-      {/* Slides */}
+    <div className="relative w-full h-full overflow-hidden" style={{ minHeight: "500px" }}>
       <div
         className="flex h-full transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${atual * 100}%)` }}
@@ -128,11 +118,8 @@ const HeroCarrossel = () => {
               src={slide.imagem}
               alt={slide.cidade}
               className="w-full h-full"
-              style={{ objectFit: "cover", objectPosition: "center center" }}
+              style={{ objectFit: "cover", objectPosition: "center top" }}
             />
-            {/* Overlay escuro de baixo */}
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%)" }} />
-            {/* Legenda clicável */}
             <a
               href={slide.maps}
               target="_blank"
@@ -157,9 +144,7 @@ const HeroCarrossel = () => {
           </div>
         ))}
       </div>
-
-      {/* Dots */}
-      <div className="absolute flex gap-1.5" style={{ bottom: "12px", left: "50%", transform: "translateX(-50%)", zIndex: 4 }}>
+      <div className="absolute flex gap-1.5" style={{ bottom: "12px", left: "50%", transform: "translateX(-50%)", zIndex: 10 }}>
         {heroSlides.map((_, i) => (
           <button
             key={i}
@@ -181,33 +166,48 @@ const Index = () => (
     </Helmet>
 
     {/* Hero */}
-    <section
-      className="relative overflow-hidden"
-      style={{ background: "linear-gradient(135deg, #1a2840 0%, #0f1520 60%, #1a0c0c 100%)", minHeight: "500px" }}
-    >
-      {/* Carrossel no fundo direito */}
-      <div className="absolute top-0 right-0 h-full hidden md:block" style={{ width: "55%" }}>
+    <section className="relative overflow-hidden" style={{ minHeight: "500px" }}>
+
+      {/* Imagem de fundo ocupando 100% */}
+      <div className="absolute inset-0 hidden md:block">
         <HeroCarrossel />
       </div>
 
-      {/* Conteúdo sobreposto à esquerda */}
-      <div className="relative z-10 container py-20">
-        <div className="max-w-xl flex flex-col gap-6">
+      {/* Degradê cobrindo área do texto sem linha visível */}
+      <div
+        className="absolute inset-0 hidden md:block"
+        style={{
+          background: "linear-gradient(to right, #0f1520 0%, #0f1520 35%, rgba(15,21,32,0.92) 50%, rgba(15,21,32,0.6) 65%, rgba(15,21,32,0.15) 82%, transparent 100%)",
+          zIndex: 2,
+          pointerEvents: "none",
+        }}
+      />
+
+      {/* Fundo sólido mobile */}
+      <div
+        className="absolute inset-0 md:hidden"
+        style={{ background: "linear-gradient(135deg, #1a2840 0%, #0f1520 60%, #1a0c0c 100%)" }}
+      />
+
+      {/* Conteúdo texto */}
+      <div className="relative py-20" style={{ zIndex: 10 }}>
+        <div className="container">
+          <div style={{ maxWidth: "560px" }}>
             <SectionReveal>
               <span
-                className="inline-block px-4 py-1.5 text-xs font-semibold text-gold"
+                className="inline-block px-4 py-1.5 text-xs font-semibold text-gold mb-6"
                 style={{ border: "1.5px solid hsl(var(--gold))", borderRadius: 0 }}
               >
                 Há mais de 30 anos no mercado
               </span>
             </SectionReveal>
             <SectionReveal delay={0.1}>
-              <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight">
+              <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6">
                 Confiança e Tradição<br />para o seu Veículo
               </h1>
             </SectionReveal>
             <SectionReveal delay={0.2}>
-              <p className="text-white/65 text-base leading-relaxed">
+              <p className="text-white/65 text-base leading-relaxed mb-8">
                 Oferecemos as melhores peças automotivas do mercado com garantia de procedência. Atendimento especializado e consultoria técnica para manter seu veículo sempre em perfeito estado.
               </p>
             </SectionReveal>
@@ -229,8 +229,10 @@ const Index = () => (
                 <StatusAtendente />
               </div>
             </SectionReveal>
+          </div>
         </div>
       </div>
+
     </section>
 
     {/* Benefits Bar */}
