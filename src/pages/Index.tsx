@@ -118,22 +118,27 @@ const HeroCarrossel = () => {
               src={slide.imagem}
               alt={slide.cidade}
               className="w-full h-full"
-              style={{ objectFit: "cover", objectPosition: "center top" }}
+              style={{ objectFit: "cover", objectPosition: "center 30%", width: "100%", height: "100%" }}
             />
             <a
               href={slide.maps}
               target="_blank"
               rel="noopener noreferrer"
-              className="absolute flex items-center gap-2 font-bold"
               style={{
-                top: "12px", right: "12px",
+                position: "absolute",
+                top: "12px",
+                right: "12px",
                 background: "rgba(0,0,0,0.65)",
                 border: "1px solid rgba(231,195,11,0.7)",
                 color: "#e7c30b",
                 padding: "6px 12px",
                 fontSize: "11px",
                 textDecoration: "none",
-                zIndex: 10,
+                zIndex: 20,
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                fontWeight: "700",
               }}
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="#e7c30b">
