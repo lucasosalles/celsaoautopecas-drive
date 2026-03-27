@@ -80,19 +80,19 @@ const heroSlides = [
     imagem: "/loja-atibaia.jpg",
     cidade: "Atibaia",
     endereco: "Praça 24 de Junho, 40",
-    maps: "https://maps.google.com/?q=Praça+24+de+Junho,+40,+Atibaia,+SP",
+    maps: "https://www.google.com/maps/search/?api=1&query=Celsao+Auto+Pecas+Atibaia+SP",
   },
   {
     imagem: "/loja-bom-jesus.jpg",
     cidade: "Bom Jesus dos Perdões",
     endereco: "Av. Santos Dumont, 425",
-    maps: "https://maps.google.com/?q=Av.+Santos+Dumont,+425,+Bom+Jesus+dos+Perdões,+SP",
+    maps: "https://www.google.com/maps/search/?api=1&query=Celsao+Auto+Pecas+Bom+Jesus+dos+Perdoes+SP",
   },
   {
     imagem: "/loja-nazare.jpg",
     cidade: "Nazaré Paulista",
     endereco: "R. José Gonçalves, 332",
-    maps: "https://maps.google.com/?q=Rua+José+Gonçalves,+332,+Nazaré+Paulista,+SP",
+    maps: "https://www.google.com/maps/search/?api=1&query=Celsao+Auto+Pecas+Nazare+Paulista+SP",
   },
 ];
 
@@ -118,7 +118,7 @@ const HeroCarrossel = () => {
               src={slide.imagem}
               alt={slide.cidade}
               className="w-full h-full"
-              style={{ objectFit: "cover", objectPosition: "top center", width: "100%", height: "100%" }}
+              style={{ objectFit: "cover", objectPosition: "top left", width: "100%", height: "100%" }}
             />
             <a
               href={slide.maps}
