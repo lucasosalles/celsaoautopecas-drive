@@ -118,7 +118,7 @@ const HeroCarrossel = () => {
               src={slide.imagem}
               alt={slide.cidade}
               className="w-full h-full"
-              style={{ objectFit: "cover", objectPosition: "center 30%", width: "100%", height: "100%" }}
+              style={{ objectFit: "contain", objectPosition: "center center", width: "100%", height: "100%", background: "#0f1520" }}
             />
             <a
               href={slide.maps}
@@ -134,11 +134,12 @@ const HeroCarrossel = () => {
                 padding: "6px 12px",
                 fontSize: "11px",
                 textDecoration: "none",
-                zIndex: 20,
+                zIndex: 30,
                 display: "flex",
                 alignItems: "center",
                 gap: "6px",
                 fontWeight: "700",
+                pointerEvents: "auto",
               }}
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="#e7c30b">
@@ -174,7 +175,7 @@ const Index = () => (
     <section className="relative overflow-hidden" style={{ minHeight: "500px" }}>
 
       {/* Imagem de fundo ocupando 100% */}
-      <div className="absolute inset-0 hidden md:block">
+      <div className="absolute inset-0 hidden md:block" style={{ zIndex: 1 }}>
         <HeroCarrossel />
       </div>
 
