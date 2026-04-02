@@ -144,47 +144,6 @@ const HeroCarrossel = ({ onSlideChange }: { onSlideChange: (i: number) => void }
 const Index = () => {
   const [slideAtual, setSlideAtual] = React.useState(0);
 
-  const heroContent = (
-    <div style={{ maxWidth: "560px", width: "100%" }}>
-      <SectionReveal>
-        <span
-          className="inline-block px-4 py-1.5 text-xs font-semibold text-gold mb-6"
-          style={{ border: "1.5px solid hsl(var(--gold))", borderRadius: 0 }}
-        >
-          Há mais de 30 anos no mercado
-        </span>
-      </SectionReveal>
-      <SectionReveal delay={0.1}>
-        <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6">
-          Confiança e Tradição<br />para o seu Veículo
-        </h1>
-      </SectionReveal>
-      <SectionReveal delay={0.2}>
-        <p className="text-white/65 text-base leading-relaxed mb-8">
-          Oferecemos as melhores peças automotivas do mercado com garantia de procedência. Atendimento especializado e consultoria técnica para manter seu veículo sempre em perfeito estado.
-        </p>
-      </SectionReveal>
-      <SectionReveal delay={0.3}>
-        <div className="flex flex-col gap-2">
-          <a
-            href="https://wa.me/5511932997159?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es."
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-6 py-3 font-extrabold text-white transition-all duration-200 hover:brightness-110 active:scale-[0.97] w-fit"
-            style={{ backgroundColor: "#25d366", borderRadius: 0 }}
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.852L.057 23.5l5.805-1.524A11.928 11.928 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.013-1.374l-.36-.214-3.724.977.994-3.634-.235-.374A9.818 9.818 0 1112 21.818z"/>
-            </svg>
-            Falar com atendente
-          </a>
-          <StatusAtendente />
-        </div>
-      </SectionReveal>
-    </div>
-  );
-
   return (
     <>
       <Helmet>
@@ -194,84 +153,90 @@ const Index = () => {
 
       {/* Hero */}
       <section className="relative overflow-hidden" style={{ background: "#0f1520" }}>
+        <div className="flex flex-col md:flex-row">
 
-        {/* Fundo sólido mobile */}
-        <div
-          className="absolute inset-0 md:hidden"
-          style={{ background: "linear-gradient(135deg, #1a2840 0%, #0f1520 60%, #1a0c0c 100%)" }}
-        />
+          {/* Bloco texto esquerda */}
+          <div
+            className="relative z-10 flex flex-col justify-center py-20 px-8 md:px-12"
+            style={{ width: "100%", maxWidth: "600px", minHeight: "500px", background: "linear-gradient(to right, #0f1520 70%, transparent 100%)" }}
+          >
+            <SectionReveal>
+              <span
+                className="inline-block px-4 py-1.5 text-xs font-semibold text-gold mb-6"
+                style={{ border: "1.5px solid hsl(var(--gold))", borderRadius: 0 }}
+              >
+                Há mais de 30 anos no mercado
+              </span>
+            </SectionReveal>
+            <SectionReveal delay={0.1}>
+              <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6">
+                Confiança e Tradição<br />para o seu Veículo
+              </h1>
+            </SectionReveal>
+            <SectionReveal delay={0.2}>
+              <p className="text-white/65 text-base leading-relaxed mb-8">
+                Oferecemos as melhores peças automotivas do mercado com garantia de procedência. Atendimento especializado e consultoria técnica para manter seu veículo sempre em perfeito estado.
+              </p>
+            </SectionReveal>
+            <SectionReveal delay={0.3}>
+              <div className="flex flex-col gap-2">
+                <a
+                  href="https://wa.me/5511932997159?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es."
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 px-6 py-3 font-extrabold text-white transition-all duration-200 hover:brightness-110 active:scale-[0.97] w-fit"
+                  style={{ backgroundColor: "#25d366", borderRadius: 0 }}
+                >
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.852L.057 23.5l5.805-1.524A11.928 11.928 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.013-1.374l-.36-.214-3.724.977.994-3.634-.235-.374A9.818 9.818 0 1112 21.818z"/>
+                  </svg>
+                  Falar com atendente
+                </a>
+                <StatusAtendente />
+              </div>
+            </SectionReveal>
+          </div>
 
-        {/* Carrossel direito — proporção 1:1 */}
-        <div className="hidden md:block" style={{ position: "absolute", top: 0, right: 0, width: "55%", zIndex: 3 }}>
-          <div style={{ position: "relative", paddingBottom: "100%", width: "100%" }}>
-            <div style={{ position: "absolute", inset: 0 }}>
-              <HeroCarrossel onSlideChange={setSlideAtual} />
+          {/* Linha dourada vertical */}
+          <div className="hidden md:block flex-shrink-0" style={{ width: "1.5px", background: "rgba(231,195,11,0.4)", alignSelf: "stretch" }} />
+
+          {/* Bloco carrossel direita — proporção 1:1 */}
+          <div className="hidden md:block flex-1 relative">
+            <div style={{ position: "relative", paddingBottom: "100%", width: "100%" }}>
+              <div style={{ position: "absolute", inset: 0 }}>
+                <HeroCarrossel onSlideChange={setSlideAtual} />
+              </div>
             </div>
+            {/* Botão localização — sem nada bloqueando */}
+            <a
+              href={heroSlides[slideAtual].maps}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2"
+              style={{
+                position: "absolute",
+                top: "12px",
+                right: "12px",
+                background: "rgba(0,0,0,0.65)",
+                border: "1px solid rgba(231,195,11,0.7)",
+                color: "#e7c30b",
+                padding: "6px 12px",
+                fontSize: "11px",
+                textDecoration: "none",
+                zIndex: 50,
+                fontWeight: "700",
+              }}
+            >
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="#e7c30b">
+                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+              </svg>
+              {heroSlides[slideAtual].cidade} · {heroSlides[slideAtual].endereco}
+            </a>
           </div>
+
         </div>
-
-        {/* Degradê mesclando os blocos */}
-        <style>{`
-          .hero-gradient {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(to right, #0f1520 0%, #0f1520 38%, rgba(15,21,32,0.92) 52%, rgba(15,21,32,0.5) 65%, rgba(15,21,32,0.1) 80%, transparent 100%);
-            z-index: 2;
-            pointer-events: none !important;
-          }
-        `}</style>
-        <div className="hero-gradient hidden md:block" />
-
-        {/* Linha dourada vertical */}
-        <div
-          className="absolute top-0 hidden md:block"
-          style={{ left: "45%", width: "1.5px", height: "100%", backgroundColor: "rgba(231,195,11,0.4)", zIndex: 4, pointerEvents: "none" }}
-        />
-
-        {/* Botão localização */}
-        <a
-          href={heroSlides[slideAtual].maps}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="hidden md:flex items-center gap-2"
-          style={{
-            position: "absolute",
-            top: "12px",
-            right: "12px",
-            background: "rgba(0,0,0,0.65)",
-            border: "1px solid rgba(231,195,11,0.7)",
-            color: "#e7c30b",
-            padding: "6px 12px",
-            fontSize: "11px",
-            textDecoration: "none",
-            zIndex: 100,
-            fontWeight: "700",
-            cursor: "pointer",
-          }}
-        >
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="#e7c30b">
-            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-          </svg>
-          {heroSlides[slideAtual].cidade} · {heroSlides[slideAtual].endereco}
-        </a>
-
-        {/* Conteúdo texto */}
-        <div className="relative py-20 hidden md:flex md:items-center" style={{ zIndex: 10, minHeight: "min(55vw, 700px)" }}>
-          <div className="container">
-            <div style={{ maxWidth: "45%" }}>
-              {heroContent}
-            </div>
-          </div>
-        </div>
-
-        {/* Versão mobile */}
-        <div className="md:hidden relative py-16" style={{ zIndex: 10 }}>
-          <div className="container">
-            {heroContent}
-          </div>
-        </div>
-
-    </section>
+      </section>
 
     {/* Benefits Bar */}
     <section className="bg-gold py-6">
