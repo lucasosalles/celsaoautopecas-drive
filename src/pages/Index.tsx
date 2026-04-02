@@ -122,7 +122,7 @@ const HeroCarrossel = ({ onSlideChange }: { onSlideChange: (i: number) => void }
               src={slide.imagem}
               alt={slide.cidade}
               className="w-full h-full"
-              style={{ objectFit: "contain", objectPosition: "center center", width: "100%", height: "100%", background: "#0a0f1a" }}
+              style={{ objectFit: "cover", objectPosition: "center center", width: "100%", height: "100%" }}
             />
           </div>
         ))}
@@ -143,6 +143,48 @@ const HeroCarrossel = ({ onSlideChange }: { onSlideChange: (i: number) => void }
 
 const Index = () => {
   const [slideAtual, setSlideAtual] = React.useState(0);
+
+  const heroContent = (
+    <div style={{ maxWidth: "560px", width: "100%" }}>
+      <SectionReveal>
+        <span
+          className="inline-block px-4 py-1.5 text-xs font-semibold text-gold mb-6"
+          style={{ border: "1.5px solid hsl(var(--gold))", borderRadius: 0 }}
+        >
+          Há mais de 30 anos no mercado
+        </span>
+      </SectionReveal>
+      <SectionReveal delay={0.1}>
+        <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6">
+          Confiança e Tradição<br />para o seu Veículo
+        </h1>
+      </SectionReveal>
+      <SectionReveal delay={0.2}>
+        <p className="text-white/65 text-base leading-relaxed mb-8">
+          Oferecemos as melhores peças automotivas do mercado com garantia de procedência. Atendimento especializado e consultoria técnica para manter seu veículo sempre em perfeito estado.
+        </p>
+      </SectionReveal>
+      <SectionReveal delay={0.3}>
+        <div className="flex flex-col gap-2">
+          <a
+            href="https://wa.me/5511932997159?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-3 px-6 py-3 font-extrabold text-white transition-all duration-200 hover:brightness-110 active:scale-[0.97] w-fit"
+            style={{ backgroundColor: "#25d366", borderRadius: 0 }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+              <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.852L.057 23.5l5.805-1.524A11.928 11.928 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.013-1.374l-.36-.214-3.724.977.994-3.634-.235-.374A9.818 9.818 0 1112 21.818z"/>
+            </svg>
+            Falar com atendente
+          </a>
+          <StatusAtendente />
+        </div>
+      </SectionReveal>
+    </div>
+  );
+
   return (
     <>
       <Helmet>
@@ -151,7 +193,7 @@ const Index = () => {
       </Helmet>
 
       {/* Hero */}
-      <section className="relative overflow-hidden" style={{ minHeight: "500px" }}>
+      <section className="relative overflow-hidden" style={{ background: "#0f1520" }}>
 
         {/* Fundo sólido mobile */}
         <div
@@ -159,9 +201,13 @@ const Index = () => {
           style={{ background: "linear-gradient(135deg, #1a2840 0%, #0f1520 60%, #1a0c0c 100%)" }}
         />
 
-        {/* Carrossel fundo direito — 55% */}
-        <div className="absolute top-0 right-0 h-full hidden md:block" style={{ width: "55%", zIndex: 3 }}>
-          <HeroCarrossel onSlideChange={setSlideAtual} />
+        {/* Carrossel direito — proporção 1:1 */}
+        <div className="hidden md:block" style={{ position: "absolute", top: 0, right: 0, width: "55%", zIndex: 3 }}>
+          <div style={{ position: "relative", paddingBottom: "100%", width: "100%" }}>
+            <div style={{ position: "absolute", inset: 0 }}>
+              <HeroCarrossel onSlideChange={setSlideAtual} />
+            </div>
+          </div>
         </div>
 
         {/* Degradê mesclando os blocos */}
@@ -209,49 +255,21 @@ const Index = () => {
           {heroSlides[slideAtual].cidade} · {heroSlides[slideAtual].endereco}
         </a>
 
-        {/* Conteúdo texto — 45% */}
-        <div className="relative py-20" style={{ zIndex: 10, maxWidth: "45%" }}>
-        <div className="container">
-          <div style={{ maxWidth: "560px" }}>
-            <SectionReveal>
-              <span
-                className="inline-block px-4 py-1.5 text-xs font-semibold text-gold mb-6"
-                style={{ border: "1.5px solid hsl(var(--gold))", borderRadius: 0 }}
-              >
-                Há mais de 30 anos no mercado
-              </span>
-            </SectionReveal>
-            <SectionReveal delay={0.1}>
-              <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6">
-                Confiança e Tradição<br />para o seu Veículo
-              </h1>
-            </SectionReveal>
-            <SectionReveal delay={0.2}>
-              <p className="text-white/65 text-base leading-relaxed mb-8">
-                Oferecemos as melhores peças automotivas do mercado com garantia de procedência. Atendimento especializado e consultoria técnica para manter seu veículo sempre em perfeito estado.
-              </p>
-            </SectionReveal>
-            <SectionReveal delay={0.3}>
-              <div className="flex flex-col gap-2">
-                <a
-                  href="https://wa.me/5511932997159?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es."
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-3 px-6 py-3 font-extrabold text-white transition-all duration-200 hover:brightness-110 active:scale-[0.97] w-fit"
-                  style={{ backgroundColor: "#25d366", borderRadius: 0 }}
-                >
-                  <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
-                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
-                    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.852L.057 23.5l5.805-1.524A11.928 11.928 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.013-1.374l-.36-.214-3.724.977.994-3.634-.235-.374A9.818 9.818 0 1112 21.818z"/>
-                  </svg>
-                  Falar com atendente
-                </a>
-                <StatusAtendente />
-              </div>
-            </SectionReveal>
+        {/* Conteúdo texto */}
+        <div className="relative py-20 hidden md:flex md:items-center" style={{ zIndex: 10, minHeight: "min(55vw, 700px)" }}>
+          <div className="container">
+            <div style={{ maxWidth: "45%" }}>
+              {heroContent}
+            </div>
           </div>
         </div>
-      </div>
+
+        {/* Versão mobile */}
+        <div className="md:hidden relative py-16" style={{ zIndex: 10 }}>
+          <div className="container">
+            {heroContent}
+          </div>
+        </div>
 
     </section>
 
