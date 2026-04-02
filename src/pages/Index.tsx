@@ -96,18 +96,22 @@ const heroSlides = [
   },
 ];
 
-const HeroCarrossel = () => {
+const HeroCarrossel = ({ onSlideChange }: { onSlideChange: (i: number) => void }) => {
   const [atual, setAtual] = React.useState(0);
 
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setAtual((prev) => (prev + 1) % heroSlides.length);
+      setAtual((prev) => {
+        const next = (prev + 1) % heroSlides.length;
+        onSlideChange(next);
+        return next;
+      });
     }, 3500);
     return () => clearInterval(interval);
-  }, []);
+  }, [onSlideChange]);
 
   return (
-    <div className="relative w-full h-full overflow-hidden" style={{ minHeight: "500px" }}>
+    <div className="relative w-full h-full overflow-hidden">
       <div
         className="flex h-full transition-transform duration-700 ease-in-out"
         style={{ transform: `translateX(-${atual * 100}%)` }}
@@ -120,34 +124,6 @@ const HeroCarrossel = () => {
               className="w-full h-full"
               style={{ objectFit: "cover", objectPosition: "top left", width: "100%", height: "100%" }}
             />
-            <a
-              href={slide.maps}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                position: "absolute",
-                top: "12px",
-                right: "12px",
-                background: "rgba(0,0,0,0.65)",
-                border: "1px solid rgba(231,195,11,0.7)",
-                color: "#e7c30b",
-                padding: "6px 12px",
-                fontSize: "11px",
-                textDecoration: "none",
-                zIndex: 50,
-                display: "flex",
-                alignItems: "center",
-                gap: "6px",
-                fontWeight: "700",
-                cursor: "pointer",
-                pointerEvents: "all",
-              }}
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="#e7c30b">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-              {slide.cidade} · {slide.endereco}
-            </a>
           </div>
         ))}
       </div>
@@ -155,7 +131,7 @@ const HeroCarrossel = () => {
         {heroSlides.map((_, i) => (
           <button
             key={i}
-            onClick={() => setAtual(i)}
+            onClick={() => { setAtual(i); onSlideChange(i); }}
             className="w-1.5 h-1.5 rounded-full transition-all duration-300"
             style={{ backgroundColor: i === atual ? "#e7c30b" : "rgba(255,255,255,0.4)" }}
           />
@@ -165,20 +141,49 @@ const HeroCarrossel = () => {
   );
 };
 
-const Index = () => (
-  <>
-    <Helmet>
-      <title>Celsão Auto Peças</title>
-      <meta name="description" content="Há mais de 30 anos oferecendo as melhores autopeças. Faróis, lanternas, retrovisores e acessórios. 3 lojas em SP. Entrega para todo o Brasil." />
-    </Helmet>
+const Index = () => {
+  const [slideAtual, setSlideAtual] = React.useState(0);
+  return (
+    <>
+      <Helmet>
+        <title>Celsão Auto Peças</title>
+        <meta name="description" content="Há mais de 30 anos oferecendo as melhores autopeças. Faróis, lanternas, retrovisores e acessórios. 3 lojas em SP. Entrega para todo o Brasil." />
+      </Helmet>
 
-    {/* Hero */}
-    <section className="relative overflow-hidden" style={{ minHeight: "500px" }}>
+      {/* Hero */}
+      <section className="relative overflow-hidden" style={{ minHeight: "500px" }}>
 
-      {/* Imagem de fundo ocupando 100% */}
-      <div className="absolute top-0 right-0 h-full hidden md:block" style={{ width: "60%", zIndex: 1 }}>
-        <HeroCarrossel />
-      </div>
+        {/* Carrossel fundo direito */}
+        <div className="absolute top-0 right-0 h-full hidden md:block" style={{ width: "60%", zIndex: 3 }}>
+          <HeroCarrossel onSlideChange={setSlideAtual} />
+        </div>
+
+        {/* Botão localização — diretamente na section, acima de tudo */}
+        <a
+          href={heroSlides[slideAtual].maps}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden md:flex items-center gap-2"
+          style={{
+            position: "absolute",
+            top: "12px",
+            right: "12px",
+            background: "rgba(0,0,0,0.65)",
+            border: "1px solid rgba(231,195,11,0.7)",
+            color: "#e7c30b",
+            padding: "6px 12px",
+            fontSize: "11px",
+            textDecoration: "none",
+            zIndex: 100,
+            fontWeight: "700",
+            cursor: "pointer",
+          }}
+        >
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="#e7c30b">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
+          </svg>
+          {heroSlides[slideAtual].cidade} · {heroSlides[slideAtual].endereco}
+        </a>
 
       {/* Degradê cobrindo área do texto sem linha visível */}
       <div
@@ -374,6 +379,7 @@ const Index = () => (
       </div>
     </section>
   </>
-);
+  );
+};
 
 export default Index;
