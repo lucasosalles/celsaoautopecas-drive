@@ -122,7 +122,7 @@ const HeroCarrossel = ({ onSlideChange }: { onSlideChange: (i: number) => void }
               src={slide.imagem}
               alt={slide.cidade}
               className="w-full h-full"
-              style={{ objectFit: "cover", objectPosition: "top left", width: "100%", height: "100%" }}
+              style={{ objectFit: "contain", objectPosition: "center center", width: "100%", height: "100%", background: "#0a0f1a" }}
             />
           </div>
         ))}
@@ -153,12 +153,36 @@ const Index = () => {
       {/* Hero */}
       <section className="relative overflow-hidden" style={{ minHeight: "500px" }}>
 
-        {/* Carrossel fundo direito */}
-        <div className="absolute top-0 right-0 h-full hidden md:block" style={{ width: "60%", zIndex: 3 }}>
+        {/* Fundo sólido mobile */}
+        <div
+          className="absolute inset-0 md:hidden"
+          style={{ background: "linear-gradient(135deg, #1a2840 0%, #0f1520 60%, #1a0c0c 100%)" }}
+        />
+
+        {/* Carrossel fundo direito — 55% */}
+        <div className="absolute top-0 right-0 h-full hidden md:block" style={{ width: "55%", zIndex: 3 }}>
           <HeroCarrossel onSlideChange={setSlideAtual} />
         </div>
 
-        {/* Botão localização — diretamente na section, acima de tudo */}
+        {/* Degradê mesclando os blocos */}
+        <style>{`
+          .hero-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, #0f1520 0%, #0f1520 38%, rgba(15,21,32,0.92) 52%, rgba(15,21,32,0.5) 65%, rgba(15,21,32,0.1) 80%, transparent 100%);
+            z-index: 2;
+            pointer-events: none !important;
+          }
+        `}</style>
+        <div className="hero-gradient hidden md:block" />
+
+        {/* Linha dourada vertical */}
+        <div
+          className="absolute top-0 hidden md:block"
+          style={{ left: "45%", width: "1.5px", height: "100%", backgroundColor: "rgba(231,195,11,0.4)", zIndex: 4, pointerEvents: "none" }}
+        />
+
+        {/* Botão localização */}
         <a
           href={heroSlides[slideAtual].maps}
           target="_blank"
@@ -185,25 +209,8 @@ const Index = () => {
           {heroSlides[slideAtual].cidade} · {heroSlides[slideAtual].endereco}
         </a>
 
-      {/* Degradê cobrindo área do texto sem linha visível */}
-      <div
-        className="absolute inset-0 hidden md:block"
-        style={{
-          background: "linear-gradient(to right, #0f1520 0%, #0f1520 35%, rgba(15,21,32,0.92) 50%, rgba(15,21,32,0.6) 65%, rgba(15,21,32,0.15) 82%, transparent 100%)",
-          zIndex: 2,
-          pointerEvents: "none",
-          userSelect: "none",
-        }}
-      />
-
-      {/* Fundo sólido mobile */}
-      <div
-        className="absolute inset-0 md:hidden"
-        style={{ background: "linear-gradient(135deg, #1a2840 0%, #0f1520 60%, #1a0c0c 100%)" }}
-      />
-
-      {/* Conteúdo texto */}
-      <div className="relative py-20" style={{ zIndex: 10 }}>
+        {/* Conteúdo texto — 45% */}
+        <div className="relative py-20" style={{ zIndex: 10, maxWidth: "45%" }}>
         <div className="container">
           <div style={{ maxWidth: "560px" }}>
             <SectionReveal>
