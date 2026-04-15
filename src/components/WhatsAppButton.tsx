@@ -2,7 +2,7 @@ import React from "react";
 
 const WhatsAppButton = () => (
   <a
-    href="https://wa.me/5511932997159?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es%20sobre%20uma%20pe%C3%A7a."
+    href="https://api.whatsapp.com/send/?phone=5511932997159&text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20or%C3%A7amento.%0A%0AMeu%20carro%3A%20%0AAno%2FModelo%3A%20%0AAs%20pe%C3%A7as%3A%20"
     target="_blank"
     rel="noopener noreferrer"
     aria-label="Fale conosco pelo WhatsApp"
@@ -16,4 +16,4 @@ const WhatsAppButton = () => (
   </a>
 );
 
-export default WhatsAppButton;
+export default WhatsAppButton;
