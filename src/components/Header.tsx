@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
 
 const navItems = [
-  { label: "Home", path: "/" },
+  { label: "Início", path: "/" },
   { label: "Sobre", path: "/sobre" },
   { label: "Contato", path: "/contato" },
 ];

@@ -1,15 +1,11 @@
-import React from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { Truck, RefreshCw, CreditCard, ShieldCheck, Award, Clock, Headphones, Mail, Phone, MapPin } from "lucide-react";
+import { Award, Clock, Headphones, Mail, Phone, MapPin, Truck, Star, Package, Wrench, Zap, Filter, Settings, Disc } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
 import { useOrcamento } from "@/context/OrcamentoContext";
 
-const benefits = [
-  { icon: RefreshCw, text: "Troca em 7 dias" },
-  { icon: CreditCard, text: "Parcele em até 12x" },
-  { icon: ShieldCheck, text: "Site 100% seguro" },
-];
+// ─── Dados ───────────────────────────────────────────────────────────────────
 
 const differentials = [
   { icon: Award, title: "Peças originais", desc: "Garantia de qualidade e procedência" },
@@ -52,6 +48,114 @@ const stores = [
   { city: "Atibaia", address: "Praça 24 de Junho, 40", tel: "(11) 93299-7159", telRaw: "+5511932997159", hours: "Seg–Sex 08h–18h | Sáb 08h–13h" },
 ];
 
+const avaliacoes = [
+  { nome: "Marcos Oliveira", estrelas: 5, texto: "Atendimento excelente! Encontrei a peça que precisava na hora, equipe muito bem treinada. Recomendo para todos que precisam de autopeças na região." },
+  { nome: "Ana Paula Ferreira", estrelas: 5, texto: "Ótima loja, preços justos e atendimento rápido. Comprei filtros e pastilhas e tudo chegou certinho. Com certeza vou voltar!" },
+  { nome: "Roberto Santos", estrelas: 5, texto: "Fui na unidade de Atibaia e fui muito bem atendido. Tinham a peça em estoque, o atendente me ajudou a confirmar se era a certa para o meu carro." },
+  { nome: "Carla Mendes", estrelas: 4, texto: "Bom estoque e atendimento ágil. Precisei de uma bomba d'água para o meu Fiat e eles tinham. Muito bom!" },
+  { nome: "João Carlos Lima", estrelas: 5, texto: "Melhor autopeças da região! Já compro aqui há anos e nunca me decepcionei. Qualidade garantida e equipe sempre prestativa." },
+  { nome: "Fernanda Costa", estrelas: 5, texto: "Fiz meu pedido pelo WhatsApp e foi super prático. Me mandaram fotos da peça, confirmaram o código e entregaram no prazo. Nota 10!" },
+];
+
+const categorias = [
+  { icon: Disc, nome: "Freios", itens: "Pastilhas, discos, tambores, lonas, kits" },
+  { icon: Settings, nome: "Suspensão", itens: "Amortecedores, buchas, pivôs, barras estabilizadoras" },
+  { icon: Wrench, nome: "Motor", itens: "Juntas, pistões, bronzinas, retentores, anéis" },
+  { icon: Zap, nome: "Sistema Elétrico", itens: "Velas, bobinas, sensores, alternadores, motor de arranque" },
+  { icon: Filter, nome: "Filtros", itens: "Filtros de ar, óleo, combustível e cabine" },
+  { icon: Package, nome: "Correias", itens: "Correias dentadas, poly-v, tensores e kits completos" },
+  { icon: Settings, nome: "Embreagem", itens: "Disco, plato, rolamento de embreagem" },
+  { icon: Wrench, nome: "Arrefecimento", itens: "Termostato, bomba d'água, radiadores, mangueiras" },
+];
+
+const heroSlides = [
+  {
+    imagem: "/loja-atibaia.jpg",
+    cidade: "Atibaia",
+    endereco: "Praça 24 de Junho, 40",
+    maps: "https://www.google.com/maps/search/?api=1&query=Celsao+Auto+Pecas+Atibaia+SP",
+  },
+  {
+    imagem: "/loja-bom-jesus.jpg",
+    cidade: "Bom Jesus dos Perdões",
+    endereco: "Av. Santos Dumont, 425",
+    maps: "https://www.google.com/maps/search/?api=1&query=Celsao+Auto+Pecas+Bom+Jesus+dos+Perdoes+SP",
+  },
+  {
+    imagem: "/loja-nazare.jpg",
+    cidade: "Nazaré Paulista",
+    endereco: "R. José Gonçalves, 332",
+    maps: "https://www.google.com/maps/search/?api=1&query=Celsao+Auto+Pecas+Nazare+Paulista+SP",
+  },
+];
+
+const contadores = [
+  { valor: 3, sufixo: "", label: "Unidades" },
+  { valor: 50000, sufixo: "+", label: "Clientes atendidos" },
+  { valor: 30, sufixo: "+ anos", label: "No mercado" },
+  { valor: 10000, sufixo: "+", label: "Itens no estoque" },
+];
+
+// ─── Componentes auxiliares ───────────────────────────────────────────────────
+
+const StarRating = ({ count }: { count: number }) => (
+  <div className="flex gap-0.5">
+    {[1, 2, 3, 4, 5].map((i) => (
+      <Star
+        key={i}
+        className="h-4 w-4"
+        fill={i <= count ? "#f59e0b" : "none"}
+        stroke={i <= count ? "#f59e0b" : "#d1d5db"}
+      />
+    ))}
+  </div>
+);
+
+const CounterItem = ({ valor, sufixo, label }: { valor: number; sufixo: string; label: string }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef<HTMLDivElement>(null);
+  const started = useRef(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && !started.current) {
+          started.current = true;
+          const duration = 1800;
+          const steps = 50;
+          const increment = valor / steps;
+          let current = 0;
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= valor) {
+              setCount(valor);
+              clearInterval(timer);
+            } else {
+              setCount(Math.floor(current));
+            }
+          }, duration / steps);
+        }
+      },
+      { threshold: 0.3 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [valor]);
+
+  const formatted = count >= 1000 ? count.toLocaleString("pt-BR") : count;
+
+  return (
+    <div ref={ref} className="text-center">
+      <p className="text-4xl md:text-5xl font-extrabold text-white">
+        {formatted}{sufixo}
+      </p>
+      <p className="mt-2 text-sm font-medium text-white/60 uppercase tracking-widest">{label}</p>
+    </div>
+  );
+};
+
 const StatusAtendente = () => {
   const agora = new Date(new Date().toLocaleString("en-US", { timeZone: "America/Sao_Paulo" }));
   const hora = agora.getHours();
@@ -75,27 +179,6 @@ const StatusAtendente = () => {
     </div>
   );
 };
-
-const heroSlides = [
-  {
-    imagem: "/loja-atibaia.jpg",
-    cidade: "Atibaia",
-    endereco: "Praça 24 de Junho, 40",
-    maps: "https://www.google.com/maps/search/?api=1&query=Celsao+Auto+Pecas+Atibaia+SP",
-  },
-  {
-    imagem: "/loja-bom-jesus.jpg",
-    cidade: "Bom Jesus dos Perdões",
-    endereco: "Av. Santos Dumont, 425",
-    maps: "https://www.google.com/maps/search/?api=1&query=Celsao+Auto+Pecas+Bom+Jesus+dos+Perdoes+SP",
-  },
-  {
-    imagem: "/loja-nazare.jpg",
-    cidade: "Nazaré Paulista",
-    endereco: "R. José Gonçalves, 332",
-    maps: "https://www.google.com/maps/search/?api=1&query=Celsao+Auto+Pecas+Nazare+Paulista+SP",
-  },
-];
 
 const HeroCarrossel = ({ onSlideChange }: { onSlideChange: (i: number) => void }) => {
   const [atual, setAtual] = React.useState(0);
@@ -142,6 +225,8 @@ const HeroCarrossel = ({ onSlideChange }: { onSlideChange: (i: number) => void }
   );
 };
 
+// ─── Página ───────────────────────────────────────────────────────────────────
+
 const Index = () => {
   const [slideAtual, setSlideAtual] = React.useState(0);
   const { openModal } = useOrcamento();
@@ -150,14 +235,12 @@ const Index = () => {
     <>
       <Helmet>
         <title>Celsão Auto Peças</title>
-        <meta name="description" content="Há mais de 30 anos oferecendo as melhores autopeças. Faróis, lanternas, retrovisores e acessórios. 3 lojas em SP. Entrega para todo o Brasil." />
+        <meta name="description" content="Há mais de 30 anos oferecendo as melhores autopeças. 3 lojas em SP: Atibaia, Bom Jesus dos Perdões e Nazaré Paulista. Entrega gratuita na região." />
       </Helmet>
 
       {/* Hero */}
       <section className="relative overflow-hidden" style={{ background: "#0f1520" }}>
         <div className="flex flex-col md:flex-row">
-
-          {/* Bloco texto esquerda */}
           <div
             className="relative z-10 flex flex-col justify-center py-20 px-8 md:px-12"
             style={{ width: "100%", maxWidth: "600px", minHeight: "500px", background: "linear-gradient(to right, #0f1520 70%, transparent 100%)" }}
@@ -198,34 +281,24 @@ const Index = () => {
             </SectionReveal>
           </div>
 
-          {/* Linha dourada vertical */}
           <div className="hidden md:block flex-shrink-0" style={{ width: "1.5px", background: "rgba(231,195,11,0.4)", alignSelf: "stretch" }} />
 
-          {/* Bloco carrossel direita — proporção 1:1 */}
           <div className="hidden md:block flex-1 relative">
             <div style={{ position: "relative", paddingBottom: "100%", width: "100%" }}>
               <div style={{ position: "absolute", inset: 0 }}>
                 <HeroCarrossel onSlideChange={setSlideAtual} />
               </div>
             </div>
-            {/* Botão localização — sem nada bloqueando */}
             <a
               href={heroSlides[slideAtual].maps}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2"
               style={{
-                position: "absolute",
-                top: "12px",
-                right: "12px",
-                background: "rgba(0,0,0,0.65)",
-                border: "1px solid rgba(231,195,11,0.7)",
-                color: "#e7c30b",
-                padding: "6px 12px",
-                fontSize: "11px",
-                textDecoration: "none",
-                zIndex: 50,
-                fontWeight: "700",
+                position: "absolute", top: "12px", right: "12px",
+                background: "rgba(0,0,0,0.65)", border: "1px solid rgba(231,195,11,0.7)",
+                color: "#e7c30b", padding: "6px 12px", fontSize: "11px",
+                textDecoration: "none", zIndex: 50, fontWeight: "700",
               }}
             >
               <svg width="12" height="12" viewBox="0 0 24 24" fill="#e7c30b">
@@ -234,141 +307,263 @@ const Index = () => {
               {heroSlides[slideAtual].cidade} · {heroSlides[slideAtual].endereco}
             </a>
           </div>
-
         </div>
       </section>
 
-    {/* Benefits Bar */}
-    <section className="bg-gold py-6">
-      <div className="container">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center justify-items-center">
-          {benefits.map((b) => (
-            <div key={b.text} className="flex items-center gap-3 justify-center text-center md:text-left">
-              <b.icon className="h-5 w-5 shrink-0 text-gold-foreground" />
-              <span className="text-sm font-bold text-gold-foreground">{b.text}</span>
-            </div>
-          ))}
+      {/* Contadores */}
+      <section className="py-16" style={{ background: "#1a2840" }}>
+        <div className="container">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {contadores.map((c) => (
+              <CounterItem key={c.label} valor={c.valor} sufixo={c.sufixo} label={c.label} />
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* Differentials */}
-    <section className="py-20">
-      <div className="container">
-        <SectionReveal>
-          <div className="grid gap-6 md:grid-cols-3">
-            {differentials.map((d, i) => (
-              <SectionReveal
-                key={d.title}
-                delay={i * 0.1}
-                className="group p-8 shadow-sm transition-shadow duration-300 hover:shadow-md"
-                style={{ backgroundColor: "#f8f9fa", borderBottom: "3px solid #e7c30b", borderRadius: 0 }}
-              >
-                <div
-                  className="mb-4 flex h-12 w-12 items-center justify-center text-primary"
-                  style={{ backgroundColor: "#fef9e7", borderRadius: "0.5rem" }}
+      {/* Diferenciais */}
+      <section className="py-20">
+        <div className="container">
+          <SectionReveal>
+            <div className="grid gap-6 md:grid-cols-3">
+              {differentials.map((d, i) => (
+                <SectionReveal
+                  key={d.title}
+                  delay={i * 0.1}
+                  className="group p-8 shadow-sm transition-shadow duration-300 hover:shadow-md"
+                  style={{ backgroundColor: "#f8f9fa", borderBottom: "3px solid #e7c30b", borderRadius: 0 }}
                 >
-                  <d.icon className="h-6 w-6" />
+                  <div
+                    className="mb-4 flex h-12 w-12 items-center justify-center text-primary"
+                    style={{ backgroundColor: "#fef9e7", borderRadius: "0.5rem" }}
+                  >
+                    <d.icon className="h-6 w-6" />
+                  </div>
+                  <h3 className="text-lg font-bold text-foreground mb-2">{d.title}</h3>
+                  <p className="text-sm text-muted-foreground text-pretty">{d.desc}</p>
+                </SectionReveal>
+              ))}
+            </div>
+          </SectionReveal>
+        </div>
+      </section>
+
+      {/* Linha de produtos — linha leve */}
+      <section className="py-20 bg-gray-50">
+        <div className="container">
+          <SectionReveal>
+            <h2 className="text-3xl font-extrabold text-center mb-2 text-secondary">Linha de Produtos</h2>
+            <p className="text-center text-muted-foreground mb-12">Trabalhamos com as principais categorias da linha leve</p>
+          </SectionReveal>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {categorias.map((cat, i) => (
+              <SectionReveal key={cat.nome} delay={i * 0.07}>
+                <div
+                  className="flex flex-col items-start gap-3 p-6 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow h-full"
+                  style={{ borderLeft: "3px solid #dc1b17" }}
+                >
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg" style={{ backgroundColor: "#fef2f2" }}>
+                    <cat.icon className="h-5 w-5" style={{ color: "#dc1b17" }} />
+                  </div>
+                  <div>
+                    <p className="font-bold text-gray-900">{cat.nome}</p>
+                    <p className="text-xs text-gray-500 mt-1 leading-relaxed">{cat.itens}</p>
+                  </div>
                 </div>
-                <h3 className="text-lg font-bold text-foreground mb-2">{d.title}</h3>
-                <p className="text-sm text-muted-foreground text-pretty">{d.desc}</p>
               </SectionReveal>
             ))}
           </div>
-        </SectionReveal>
-      </div>
-    </section>
+        </div>
+      </section>
 
-    {/* Featured Products / Marcas */}
-    <section className="py-20 bg-muted overflow-hidden">
-      <div className="container mb-12">
-        <SectionReveal>
-          <h2 className="text-3xl font-extrabold text-center text-balance text-secondary">Nossos Parceiros</h2>
-        </SectionReveal>
-      </div>
-      
-      <div className="relative w-full overflow-hidden">
-        {/* Gradientes laterais para suavizar as bordas da animação */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-muted to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-muted to-transparent z-10 pointer-events-none"></div>
-        
-        <div className="animate-scroll-marcas">
-          {/* Duplicamos a lista para criar o efeito infinito sem cortes */}
-          {[...marcas, ...marcas, ...marcas].map((m, i) => (
-            <div 
-              key={`${m.name}-${i}`} 
-              className="px-8 flex-shrink-0 flex items-center justify-center group"
-            >
-              <div className="w-40 h-24 rounded-xl border border-border bg-white shadow-sm flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:border-primary/20 group-hover:scale-105 p-3">
-                <img 
-                  src={`/logos/${m.arquivo}`} 
-                  alt={m.name} 
-                  className="max-w-full max-h-full object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
-                  onError={(e) => {
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = 'none';
-                  }}
-                />
-              </div>
+      {/* Entrega gratuita */}
+      <section className="py-16" style={{ background: "linear-gradient(135deg, #1a2840 0%, #0f1520 100%)" }}>
+        <div className="container">
+          <div className="flex flex-col md:flex-row items-center gap-10">
+            <div className="flex-shrink-0 flex h-24 w-24 items-center justify-center rounded-full" style={{ backgroundColor: "rgba(231,195,11,0.15)", border: "2px solid rgba(231,195,11,0.4)" }}>
+              <Truck className="h-10 w-10" style={{ color: "#e7c30b" }} />
             </div>
-          ))}
+            <div className="text-center md:text-left">
+              <h2 className="text-3xl font-extrabold text-white mb-3">Entrega gratuita na região</h2>
+              <p className="text-white/70 text-lg max-w-2xl">
+                Realizamos entregas sem custo adicional em toda a área de abrangência das nossas 3 unidades —{" "}
+                <strong className="text-white">Atibaia</strong>,{" "}
+                <strong className="text-white">Bom Jesus dos Perdões</strong> e{" "}
+                <strong className="text-white">Nazaré Paulista</strong> e municípios vizinhos.
+              </p>
+              <p className="text-white/50 text-sm mt-3">Consulte disponibilidade pelo WhatsApp · Seg–Sex 8h–18h · Sáb 8h–13h</p>
+            </div>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    {/* Contact Quick */}
-    <section className="py-20">
-      <div className="container">
-        <SectionReveal>
-          <h2 className="text-3xl font-extrabold text-center mb-12 text-balance text-secondary">Entre em contato</h2>
-        </SectionReveal>
-        <div className="grid gap-4 md:grid-cols-2 mb-8">
-          <SectionReveal delay={0.1}>
-            <a href="mailto:comercial@celsaoautopecas.com" className="flex items-center gap-4 rounded-xl border border-border bg-card p-6 shadow-sm transition-shadow duration-300 hover:shadow-md group">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-accent text-primary">
-                <Mail className="h-6 w-6" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">E-mail</p>
-                <p className="font-semibold text-card-foreground group-hover:text-primary transition-colors">comercial@celsaoautopecas.com</p>
-              </div>
-            </a>
-          </SectionReveal>
-          <SectionReveal delay={0.15}>
-            <a href="tel:+5511932997159" className="flex items-center gap-4 rounded-xl border border-border bg-card p-6 shadow-sm transition-shadow duration-300 hover:shadow-md group">
-              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-accent text-primary">
-                <Phone className="h-6 w-6" />
-              </div>
-              <div>
-                <p className="text-sm text-muted-foreground">Telefone / WhatsApp</p>
-                <p className="font-semibold text-card-foreground group-hover:text-primary transition-colors">(11) 93299-7159</p>
-              </div>
-            </a>
+      {/* Parceiros / Marcas */}
+      <section className="py-20 bg-muted overflow-hidden">
+        <div className="container mb-12">
+          <SectionReveal>
+            <h2 className="text-3xl font-extrabold text-center text-balance text-secondary">Nossos Parceiros</h2>
           </SectionReveal>
         </div>
-        <div className="grid gap-4 md:grid-cols-3">
-          {stores.map((s, i) => (
-            <SectionReveal key={s.city} delay={0.1 + i * 0.08} className="rounded-xl border border-border bg-card p-6 shadow-sm">
-              <div className="flex items-start gap-3 mb-3">
-                <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                <div>
-                  <h3 className="font-bold text-card-foreground">{s.city}</h3>
-                  <p className="text-sm text-muted-foreground">{s.address}</p>
+        <div className="relative w-full overflow-hidden">
+          <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-muted to-transparent z-10 pointer-events-none" />
+          <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-muted to-transparent z-10 pointer-events-none" />
+          <div className="animate-scroll-marcas">
+            {[...marcas, ...marcas, ...marcas].map((m, i) => (
+              <div key={`${m.name}-${i}`} className="px-8 flex-shrink-0 flex items-center justify-center group">
+                <div className="w-40 h-24 rounded-xl border border-border bg-white shadow-sm flex items-center justify-center transition-all duration-300 group-hover:shadow-md group-hover:border-primary/20 group-hover:scale-105 p-3">
+                  <img
+                    src={`/logos/${m.arquivo}`}
+                    alt={m.name}
+                    className="max-w-full max-h-full object-contain grayscale opacity-80 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300"
+                    onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
+                  />
                 </div>
               </div>
-              <a href={`tel:${s.telRaw}`} className="text-sm font-medium text-primary hover:underline block mb-1">{s.tel}</a>
-              <p className="text-xs text-muted-foreground">{s.hours}</p>
-            </SectionReveal>
-          ))}
+            ))}
+          </div>
         </div>
-        <SectionReveal className="mt-10 text-center">
-          <Link to="/contato" className="inline-flex items-center gap-2 bg-primary px-6 py-3 font-semibold text-primary-foreground transition-all duration-200 hover:brightness-110 active:scale-[0.97]">
-            Enviar mensagem →
-          </Link>
-        </SectionReveal>
-      </div>
-    </section>
-  </>
+      </section>
+
+      {/* Avaliações Google */}
+      <section className="py-20 bg-white">
+        <div className="container">
+          <SectionReveal>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-12">
+              <div>
+                <h2 className="text-3xl font-extrabold text-secondary">O que nossos clientes dizem</h2>
+                <div className="flex items-center gap-2 mt-2">
+                  <StarRating count={5} />
+                  <span className="text-sm text-muted-foreground font-medium">Avaliações Google Meu Negócio</span>
+                </div>
+              </div>
+              <a
+                href="https://www.google.com/search?q=Cels%C3%A3o+Auto+Pe%C3%A7as"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 border-2 text-sm font-bold transition-colors hover:bg-gray-50 shrink-0"
+                style={{ borderColor: "#1a2840", color: "#1a2840", borderRadius: "8px" }}
+              >
+                Ver todas no Google
+              </a>
+            </div>
+          </SectionReveal>
+          <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {avaliacoes.map((av, i) => (
+              <SectionReveal key={av.nome} delay={i * 0.08}>
+                <div className="flex flex-col gap-3 p-6 rounded-xl border border-gray-100 shadow-sm bg-white h-full" style={{ borderTop: "3px solid #e7c30b" }}>
+                  <StarRating count={av.estrelas} />
+                  <p className="text-gray-700 text-sm leading-relaxed flex-1">"{av.texto}"</p>
+                  <p className="font-bold text-gray-900 text-sm">{av.nome}</p>
+                </div>
+              </SectionReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Instagram */}
+      <section className="py-20 bg-gray-50">
+        <div className="container">
+          <SectionReveal>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
+              <div>
+                <h2 className="text-3xl font-extrabold text-secondary">Siga no Instagram</h2>
+                <p className="text-muted-foreground mt-1">Acompanhe novidades, promoções e dicas automotivas</p>
+              </div>
+              <a
+                href="https://www.instagram.com/celsaoautopecas"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-white shrink-0"
+                style={{
+                  background: "linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)",
+                  borderRadius: "8px",
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                @celsaoautopecas
+              </a>
+            </div>
+          </SectionReveal>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <SectionReveal key={n} delay={n * 0.07}>
+                <a
+                  href="https://www.instagram.com/celsaoautopecas"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative block aspect-square rounded-xl overflow-hidden group"
+                  style={{ background: "linear-gradient(135deg, #1a2840 0%, #0f1520 100%)" }}
+                >
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="rgba(231,195,11,0.8)">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    <span className="text-xs font-bold text-white/70">Ver no Instagram</span>
+                  </div>
+                </a>
+              </SectionReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contato rápido */}
+      <section className="py-20">
+        <div className="container">
+          <SectionReveal>
+            <h2 className="text-3xl font-extrabold text-center mb-12 text-balance text-secondary">Entre em contato</h2>
+          </SectionReveal>
+          <div className="grid gap-4 md:grid-cols-2 mb-8">
+            <SectionReveal delay={0.1}>
+              <a href="mailto:comercial@celsaoautopecas.com" className="flex items-center gap-4 rounded-xl border border-border bg-card p-6 shadow-sm transition-shadow duration-300 hover:shadow-md group">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-accent text-primary">
+                  <Mail className="h-6 w-6" />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">E-mail</p>
+                  <p className="font-semibold text-card-foreground group-hover:text-primary transition-colors">comercial@celsaoautopecas.com</p>
+                </div>
+              </a>
+            </SectionReveal>
+            <SectionReveal delay={0.15}>
+              <a href="tel:+5511932997159" className="flex items-center gap-4 rounded-xl border border-border bg-card p-6 shadow-sm transition-shadow duration-300 hover:shadow-md group">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-accent text-primary">
+                  <Phone className="h-6 w-6" />
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Telefone / WhatsApp</p>
+                  <p className="font-semibold text-card-foreground group-hover:text-primary transition-colors">(11) 93299-7159</p>
+                </div>
+              </a>
+            </SectionReveal>
+          </div>
+          <div className="grid gap-4 md:grid-cols-3">
+            {stores.map((s, i) => (
+              <SectionReveal key={s.city} delay={0.1 + i * 0.08} className="rounded-xl border border-border bg-card p-6 shadow-sm">
+                <div className="flex items-start gap-3 mb-3">
+                  <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                  <div>
+                    <h3 className="font-bold text-card-foreground">{s.city}</h3>
+                    <p className="text-sm text-muted-foreground">{s.address}</p>
+                  </div>
+                </div>
+                <a href={`tel:${s.telRaw}`} className="text-sm font-medium text-primary hover:underline block mb-1">{s.tel}</a>
+                <p className="text-xs text-muted-foreground">{s.hours}</p>
+              </SectionReveal>
+            ))}
+          </div>
+          <SectionReveal className="mt-10 text-center">
+            <Link to="/contato" className="inline-flex items-center gap-2 bg-primary px-6 py-3 font-semibold text-primary-foreground transition-all duration-200 hover:brightness-110 active:scale-[0.97]">
+              Enviar mensagem →
+            </Link>
+          </SectionReveal>
+        </div>
+      </section>
+    </>
   );
 };
 
