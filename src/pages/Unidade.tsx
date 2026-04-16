@@ -12,6 +12,7 @@ interface UnidadeProps {
   telefoneRaw: string;
   whatsapp: string;
   mapsEmbed: string;
+  mapsLink: string;
   title: string;
   description: string;
 }
@@ -24,6 +25,7 @@ const UnidadePage = ({
   telefoneRaw,
   whatsapp,
   mapsEmbed,
+  mapsLink,
   title,
   description,
 }: UnidadeProps) => (
@@ -133,16 +135,32 @@ const UnidadePage = ({
     <section className="py-0">
       <div className="container max-w-3xl py-12">
         <h2 className="text-2xl font-extrabold mb-6" style={{ color: "#1a2840" }}>Como chegar</h2>
-        <iframe
-          src={mapsEmbed}
-          width="100%"
-          height="400"
-          style={{ border: 0, borderRadius: "12px" }}
-          allowFullScreen
-          loading="lazy"
-          referrerPolicy="no-referrer-when-downgrade"
-          title={`Mapa Celsão Auto Peças ${cidade}`}
-        />
+        <div className="relative rounded-xl overflow-hidden" style={{ border: "1px solid #e5e7eb" }}>
+          <iframe
+            src={mapsEmbed}
+            width="100%"
+            height="400"
+            style={{ border: 0, display: "block" }}
+            allowFullScreen
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+            title={`Mapa Celsão Auto Peças ${cidade}`}
+          />
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
+            <a
+              href={mapsLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-3 font-bold text-white text-sm shadow-lg"
+              style={{ backgroundColor: "#1a2840", borderRadius: "8px" }}
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <polygon points="3 11 22 2 13 21 11 13 3 11" />
+              </svg>
+              Ver rota no Google Maps
+            </a>
+          </div>
+        </div>
       </div>
     </section>
 

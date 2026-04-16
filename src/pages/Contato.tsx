@@ -1,155 +1,78 @@
-import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { MapPin, Phone, Clock } from "lucide-react";
+import { Mail, Phone } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
 
-const stores = [
-  {
-    city: "Bom Jesus dos Perdões",
-    address: "Av. Santos Dumont, 425",
-    tel: "(11) 95258-7563",
-    telRaw: "+5511952587563",
-    hours: "Seg–Sex 08h–18h | Sáb 08h–13h",
-    mapSrc: "https://maps.google.com/maps?q=Av+Santos+Dumont+425+Bom+Jesus+dos+Perdoes+SP&output=embed",
-  },
-  {
-    city: "Nazaré Paulista",
-    address: "Rua José Gonçalves, 332",
-    tel: "(11) 95259-8021",
-    telRaw: "+5511952598021",
-    hours: "Seg–Sex 08h–18h | Sáb 08h–13h",
-    mapSrc: "https://maps.google.com/maps?q=Rua+Jose+Goncalves+332+Nazare+Paulista+SP&output=embed",
-  },
-  {
-    city: "Atibaia",
-    address: "Praça 24 de Junho, 40",
-    tel: "(11) 5197-1313",
-    telRaw: "+551151971313",
-    hours: "Seg–Sex 08h–18h | Sáb 08h–13h",
-    mapSrc: "https://maps.google.com/maps?q=Praca+24+de+Junho+40+Atibaia+SP&output=embed",
-  },
-];
-
 const Contato = () => {
-  const [form, setForm] = useState({ nome: "", email: "", telefone: "", assunto: "", mensagem: "" });
-  const [sent, setSent] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSent(true);
-    setTimeout(() => setSent(false), 4000);
-    setForm({ nome: "", email: "", telefone: "", assunto: "", mensagem: "" });
-  };
-
   return (
     <>
       <Helmet>
-        <title>Contato e Lojas | Celsão Auto Peças</title>
+        <title>Contato | Celsão Auto Peças</title>
       </Helmet>
 
       <section className="py-20">
-        <div className="container">
+        <div className="container max-w-2xl">
           <SectionReveal>
-            <h1 className="text-4xl font-bold mb-4 text-balance text-secondary">Entre em contato</h1>
-            <p className="text-lg text-muted-foreground mb-12 max-w-2xl text-pretty">
-              Nossa equipe está pronta para atender você. Tire suas dúvidas, solicite orçamentos ou agende uma visita à nossa loja.
+            <h1 className="text-4xl font-bold mb-4 text-secondary">Entre em contato</h1>
+            <p className="text-lg text-muted-foreground mb-12">
+              Escolha a forma mais rápida para falar com a gente.
             </p>
           </SectionReveal>
 
-          <div className="grid gap-12 lg:grid-cols-2">
-            {/* Form */}
-            <SectionReveal delay={0.1}>
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1">Nome completo *</label>
-                  <input
-                    required
-                    value={form.nome}
-                    onChange={(e) => setForm({ ...form, nome: e.target.value })}
-                    className="w-full border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-gold transition-shadow"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1">E-mail *</label>
-                  <input
-                    required
-                    type="email"
-                    value={form.email}
-                    onChange={(e) => setForm({ ...form, email: e.target.value })}
-                    className="w-full border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-gold transition-shadow"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1">Telefone</label>
-                  <input
-                    value={form.telefone}
-                    onChange={(e) => setForm({ ...form, telefone: e.target.value })}
-                    className="w-full border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-gold transition-shadow"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1">Assunto</label>
-                  <input
-                    value={form.assunto}
-                    onChange={(e) => setForm({ ...form, assunto: e.target.value })}
-                    className="w-full border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-gold transition-shadow"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-foreground mb-1">Mensagem *</label>
-                  <textarea
-                    required
-                    rows={5}
-                    value={form.mensagem}
-                    onChange={(e) => setForm({ ...form, mensagem: e.target.value })}
-                    className="w-full border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-gold transition-shadow resize-none"
-                  />
-                </div>
-                <button
-                  type="submit"
-                  className="w-full bg-primary px-6 py-3 font-semibold text-primary-foreground transition-all duration-200 hover:brightness-110 active:scale-[0.97]"
-                >
-                  Enviar mensagem
-                </button>
-                {sent && (
-                  <p className="text-sm text-whatsapp font-medium">Mensagem enviada com sucesso!</p>
-                )}
-              </form>
-            </SectionReveal>
+          <SectionReveal delay={0.1}>
+            <div className="space-y-4">
 
-            {/* Info */}
-            <SectionReveal delay={0.2}>
-              <div className="space-y-6">
-                {stores.map((s) => (
-                  <div key={s.city} className="border border-border bg-card p-6 shadow-sm" style={{ borderBottom: "3px solid #e7c30b" }}>
-                    <div className="flex items-start gap-3 mb-3">
-                      <MapPin className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                      <div>
-                        <h3 className="font-bold text-card-foreground">{s.city}</h3>
-                        <p className="text-sm text-muted-foreground">{s.address}</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <Phone className="h-4 w-4 text-primary" />
-                      <a href={`tel:${s.telRaw}`} className="text-sm font-medium text-primary hover:underline">{s.tel}</a>
-                    </div>
-                    <div className="flex items-center gap-2 mb-4">
-                      <Clock className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-xs text-muted-foreground">{s.hours}</span>
-                    </div>
-                    <iframe
-                      title={`Mapa - ${s.city}`}
-                      src={s.mapSrc}
-                      className="w-full border-0"
-                      style={{ height: 220, borderRadius: 12 }}
-                      loading="lazy"
-                      allowFullScreen
-                    />
-                  </div>
-                ))}
-              </div>
-            </SectionReveal>
-          </div>
+              {/* Email */}
+              <a
+                href="mailto:comercial@celsaoautopecas.com"
+                className="flex items-center gap-5 border border-border bg-card p-6 shadow-sm transition-colors hover:bg-gray-50"
+                style={{ borderBottom: "3px solid #e7c30b" }}
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-full shrink-0" style={{ backgroundColor: "#1a2840" }}>
+                  <Mail className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <p className="font-bold text-card-foreground">Enviar e-mail</p>
+                  <p className="text-sm text-muted-foreground">comercial@celsaoautopecas.com</p>
+                </div>
+              </a>
+
+              {/* WhatsApp */}
+              <a
+                href="https://api.whatsapp.com/send/?phone=5511932997159&text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20or%C3%A7amento.%0A%0AMeu%20carro%3A%20%0AAno%2FModelo%3A%20%0AAs%20pe%C3%A7as%3A%20"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-5 border border-border bg-card p-6 shadow-sm transition-colors hover:bg-gray-50"
+                style={{ borderBottom: "3px solid #25d366" }}
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-full shrink-0" style={{ backgroundColor: "#25d366" }}>
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="white">
+                    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+                    <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.852L.057 23.5l5.805-1.524A11.928 11.928 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.013-1.374l-.36-.214-3.724.977.994-3.634-.235-.374A9.818 9.818 0 1112 21.818z"/>
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-bold text-card-foreground">Fazer orçamento pelo WhatsApp</p>
+                  <p className="text-sm text-muted-foreground">Resposta rápida — envie o modelo do seu carro e a peça</p>
+                </div>
+              </a>
+
+              {/* Telefone */}
+              <a
+                href="tel:+551145972020"
+                className="flex items-center gap-5 border border-border bg-card p-6 shadow-sm transition-colors hover:bg-gray-50"
+                style={{ borderBottom: "3px solid #dc1b17" }}
+              >
+                <div className="flex h-12 w-12 items-center justify-center rounded-full shrink-0" style={{ backgroundColor: "#dc1b17" }}>
+                  <Phone className="h-5 w-5 text-white" />
+                </div>
+                <div>
+                  <p className="font-bold text-card-foreground">Ligar agora</p>
+                  <p className="text-sm text-muted-foreground">(11) 4597-2020</p>
+                </div>
+              </a>
+
+            </div>
+          </SectionReveal>
         </div>
       </section>
     </>
