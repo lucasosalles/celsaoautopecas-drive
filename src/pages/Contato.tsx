@@ -1,8 +1,10 @@
 import { Helmet } from "react-helmet-async";
 import { Mail, Phone } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
+import { useOrcamento } from "@/context/OrcamentoContext";
 
 const Contato = () => {
+  const { openModal } = useOrcamento();
   return (
     <>
       <Helmet>
@@ -37,11 +39,9 @@ const Contato = () => {
               </a>
 
               {/* WhatsApp */}
-              <a
-                href="https://api.whatsapp.com/send/?phone=5511932997159&text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20fazer%20um%20or%C3%A7amento.%0A%0AMeu%20carro%3A%20%0AAno%2FModelo%3A%20%0AAs%20pe%C3%A7as%3A%20"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-5 border border-border bg-card p-6 shadow-sm transition-colors hover:bg-gray-50"
+              <button
+                onClick={() => openModal()}
+                className="flex items-center gap-5 border border-border bg-card p-6 shadow-sm transition-colors hover:bg-gray-50 w-full text-left"
                 style={{ borderBottom: "3px solid #25d366" }}
               >
                 <div className="flex h-12 w-12 items-center justify-center rounded-full shrink-0" style={{ backgroundColor: "#25d366" }}>
@@ -54,7 +54,7 @@ const Contato = () => {
                   <p className="font-bold text-card-foreground">Fazer orçamento pelo WhatsApp</p>
                   <p className="text-sm text-muted-foreground">Resposta rápida — envie o modelo do seu carro e a peça</p>
                 </div>
-              </a>
+              </button>
 
               {/* Telefone */}
               <a

@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { MapPin, Phone, Clock, X } from "lucide-react";
+import { MapPin, Phone, Clock } from "lucide-react";
+import { useOrcamento } from "@/context/OrcamentoContext";
 
 interface UnidadeProps {
   cidade: string;
@@ -14,12 +14,6 @@ interface UnidadeProps {
   title: string;
   description: string;
 }
-
-const UNIDADES = [
-  { label: "Atibaia", phone: "5511932997159" },
-  { label: "Bom Jesus dos Perdões", phone: "5511932997159" },
-  { label: "Nazaré Paulista", phone: "5511932997159" },
-];
 
 const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="white">
@@ -39,24 +33,7 @@ const UnidadePage = ({
   title,
   description,
 }: UnidadeProps) => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [form, setForm] = useState({
-    carro: "",
-    anoModelo: "",
-    pecas: "",
-    unidade: cidade,
-  });
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    const unidadeInfo = UNIDADES.find((u) => u.label === form.unidade) ?? UNIDADES[0];
-    const mensagem = encodeURIComponent(
-      `Olá! Gostaria de fazer um orçamento.\n\n🚗 Carro: ${form.carro}\n📅 Ano/Modelo: ${form.anoModelo}\n🔧 Peças: ${form.pecas}\n📍 Unidade: ${form.unidade}`
-    );
-    window.open(`https://api.whatsapp.com/send/?phone=${unidadeInfo.phone}&text=${mensagem}`, "_blank");
-    setModalOpen(false);
-    setForm({ carro: "", anoModelo: "", pecas: "", unidade: cidade });
-  };
+  const { openModal } = useOrcamento();
 
   return (
     <>
@@ -148,7 +125,7 @@ const UnidadePage = ({
               </div>
 
               <button
-                onClick={() => setModalOpen(true)}
+                onClick={() => openModal(cidade)}
                 className="mt-6 inline-flex items-center gap-3 px-6 py-3 font-extrabold text-white w-fit"
                 style={{ backgroundColor: "#25d366", borderRadius: 0 }}
               >
@@ -200,7 +177,7 @@ const UnidadePage = ({
             Entre em contato agora pelo WhatsApp e receba atendimento rápido e especializado da nossa equipe em {cidade}.
           </p>
           <button
-            onClick={() => setModalOpen(true)}
+            onClick={() => openModal(cidade)}
             className="inline-flex items-center gap-3 px-8 py-4 font-extrabold text-white"
             style={{ backgroundColor: "#25d366", borderRadius: 0 }}
           >
@@ -209,78 +186,6 @@ const UnidadePage = ({
           </button>
         </div>
       </section>
-
-      {/* Modal orçamento */}
-      {modalOpen && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4"
-          style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
-          onClick={(e) => { if (e.target === e.currentTarget) setModalOpen(false); }}
-        >
-          <div className="bg-white rounded-xl shadow-2xl w-full max-w-md">
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
-              <h3 className="text-lg font-extrabold" style={{ color: "#1a2840" }}>Solicitar orçamento</h3>
-              <button onClick={() => setModalOpen(false)} className="text-gray-400 hover:text-gray-600">
-                <X className="h-5 w-5" />
-              </button>
-            </div>
-            <form onSubmit={handleSubmit} className="px-6 py-5 space-y-4">
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1">Carro *</label>
-                <input
-                  required
-                  placeholder="Ex: Chevrolet Onix"
-                  value={form.carro}
-                  onChange={(e) => setForm({ ...form, carro: e.target.value })}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1">Ano / Modelo *</label>
-                <input
-                  required
-                  placeholder="Ex: 2020 / LT"
-                  value={form.anoModelo}
-                  onChange={(e) => setForm({ ...form, anoModelo: e.target.value })}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1">Peças que precisa *</label>
-                <textarea
-                  required
-                  rows={3}
-                  placeholder="Ex: Pastilha de freio dianteira, filtro de óleo"
-                  value={form.pecas}
-                  onChange={(e) => setForm({ ...form, pecas: e.target.value })}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 resize-none"
-                />
-              </div>
-              <div>
-                <label className="block text-sm font-semibold text-gray-700 mb-1">Unidade para orçamento *</label>
-                <select
-                  required
-                  value={form.unidade}
-                  onChange={(e) => setForm({ ...form, unidade: e.target.value })}
-                  className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 bg-white"
-                >
-                  {UNIDADES.map((u) => (
-                    <option key={u.label} value={u.label}>{u.label}</option>
-                  ))}
-                </select>
-              </div>
-              <button
-                type="submit"
-                className="w-full inline-flex items-center justify-center gap-3 px-6 py-3 font-extrabold text-white mt-2"
-                style={{ backgroundColor: "#25d366", borderRadius: "8px" }}
-              >
-                <WhatsAppIcon size={20} />
-                Enviar pelo WhatsApp
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
     </>
   );
 };

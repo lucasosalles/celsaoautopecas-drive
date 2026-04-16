@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
 import { Truck, RefreshCw, CreditCard, ShieldCheck, Award, Clock, Headphones, Mail, Phone, MapPin } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
+import { useOrcamento } from "@/context/OrcamentoContext";
 
 const benefits = [
   { icon: RefreshCw, text: "Troca em 7 dias" },
@@ -143,6 +144,7 @@ const HeroCarrossel = ({ onSlideChange }: { onSlideChange: (i: number) => void }
 
 const Index = () => {
   const [slideAtual, setSlideAtual] = React.useState(0);
+  const { openModal } = useOrcamento();
 
   return (
     <>
@@ -180,10 +182,8 @@ const Index = () => {
             </SectionReveal>
             <SectionReveal delay={0.3}>
               <div className="flex flex-col gap-2">
-                <a
-                  href="https://wa.me/5511932997159?text=Ol%C3%A1!%20Vim%20pelo%20site%20e%20gostaria%20de%20informa%C3%A7%C3%B5es."
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  onClick={() => openModal()}
                   className="inline-flex items-center gap-3 px-6 py-3 font-extrabold text-white transition-all duration-200 hover:brightness-110 active:scale-[0.97] w-fit"
                   style={{ backgroundColor: "#25d366", borderRadius: 0 }}
                 >
@@ -192,7 +192,7 @@ const Index = () => {
                     <path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.852L.057 23.5l5.805-1.524A11.928 11.928 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.013-1.374l-.36-.214-3.724.977.994-3.634-.235-.374A9.818 9.818 0 1112 21.818z"/>
                   </svg>
                   Falar com atendente
-                </a>
+                </button>
                 <StatusAtendente />
               </div>
             </SectionReveal>
