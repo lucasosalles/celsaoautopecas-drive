@@ -180,25 +180,19 @@ const StatusAtendente = () => {
   );
 };
 
-const HeroCarrossel = ({ onSlideChange }: { onSlideChange: (i: number) => void }) => {
-  const [atual, setAtual] = React.useState(0);
-
+const HeroCarrossel = ({ slideAtual, onSlideChange }: { slideAtual: number; onSlideChange: (i: number) => void }) => {
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setAtual((prev) => {
-        const next = (prev + 1) % heroSlides.length;
-        onSlideChange(next);
-        return next;
-      });
+      onSlideChange((slideAtual + 1) % heroSlides.length);
     }, 3500);
     return () => clearInterval(interval);
-  }, [onSlideChange]);
+  }, [slideAtual, onSlideChange]);
 
   return (
     <div className="relative w-full h-full overflow-hidden">
       <div
         className="flex h-full transition-transform duration-700 ease-in-out"
-        style={{ transform: `translateX(-${atual * 100}%)` }}
+        style={{ transform: `translateX(-${slideAtual * 100}%)` }}
       >
         {heroSlides.map((slide, i) => (
           <div key={i} className="relative flex-shrink-0 w-full h-full" style={{ minWidth: "100%" }}>
@@ -206,19 +200,9 @@ const HeroCarrossel = ({ onSlideChange }: { onSlideChange: (i: number) => void }
               src={slide.imagem}
               alt={slide.cidade}
               className="w-full h-full"
-              style={{ objectFit: "cover", objectPosition: "center center", width: "100%", height: "100%" }}
+              style={{ objectFit: "cover", objectPosition: "center center", opacity: 0.75, width: "100%", height: "100%" }}
             />
           </div>
-        ))}
-      </div>
-      <div className="absolute flex gap-1.5" style={{ bottom: "12px", left: "50%", transform: "translateX(-50%)", zIndex: 10 }}>
-        {heroSlides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => { setAtual(i); onSlideChange(i); }}
-            className="w-1.5 h-1.5 rounded-full transition-all duration-300"
-            style={{ backgroundColor: i === atual ? "#e7c30b" : "rgba(255,255,255,0.4)" }}
-          />
         ))}
       </div>
     </div>
@@ -239,31 +223,46 @@ const Index = () => {
       </Helmet>
 
       {/* Hero */}
-      <section className="relative overflow-hidden" style={{ background: "#0f1520" }}>
-        <div className="flex flex-col md:flex-row">
-          <div
-            className="relative z-10 flex flex-col justify-center py-20 px-8 md:px-12"
-            style={{ width: "100%", maxWidth: "600px", minHeight: "500px", background: "linear-gradient(to right, #0f1520 70%, transparent 100%)" }}
-          >
+      <section style={{ position: "relative", minHeight: "500px", overflow: "hidden", background: "#0a0f1a" }}>
+        {/* Carousel de fundo */}
+        <div style={{ position: "absolute", inset: 0, zIndex: 1 }}>
+          <HeroCarrossel slideAtual={slideAtual} onSlideChange={setSlideAtual} />
+        </div>
+
+        {/* Overlay: degradê de baixo para cima */}
+        <div
+          style={{
+            position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none",
+            background: "linear-gradient(to top, rgba(10,15,26,0.95) 0%, transparent 100%)",
+          }}
+        />
+
+        {/* Overlay: degradê da esquerda para direita */}
+        <div
+          style={{
+            position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none",
+            background: "linear-gradient(to right, rgba(10,15,26,0.5) 0%, transparent 60%)",
+          }}
+        />
+
+        {/* Conteúdo de texto */}
+        <div className="container" style={{ position: "relative", zIndex: 10 }}>
+          <div style={{ paddingTop: "120px", paddingBottom: "48px", maxWidth: "580px" }}>
             <SectionReveal>
-              <span
-                className="inline-block px-4 py-1.5 text-xs font-semibold text-gold mb-6"
-                style={{ border: "1.5px solid hsl(var(--gold))", borderRadius: 0 }}
+              <h1
+                className="font-extrabold leading-tight"
+                style={{ fontSize: "clamp(2rem, 4vw, 3rem)", color: "white", marginBottom: "16px" }}
               >
-                Há mais de 30 anos no mercado
-              </span>
-            </SectionReveal>
-            <SectionReveal delay={0.1}>
-              <h1 className="text-4xl md:text-5xl font-extrabold text-white leading-tight mb-6">
-                Confiança e Tradição<br />para o seu Veículo
+                Confiança e tradição,<br />
+                <span style={{ color: "#e7c30b" }}>vem pro Celsão</span>
               </h1>
             </SectionReveal>
-            <SectionReveal delay={0.2}>
-              <p className="text-white/65 text-base leading-relaxed mb-8">
+            <SectionReveal delay={0.1}>
+              <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "15px", lineHeight: "1.6", marginBottom: "32px" }}>
                 Oferecemos as melhores peças automotivas do mercado com garantia de procedência. Atendimento especializado e consultoria técnica para manter seu veículo sempre em perfeito estado.
               </p>
             </SectionReveal>
-            <SectionReveal delay={0.3}>
+            <SectionReveal delay={0.2}>
               <div className="flex flex-col gap-2">
                 <button
                   onClick={() => openModal()}
@@ -280,33 +279,18 @@ const Index = () => {
               </div>
             </SectionReveal>
           </div>
+        </div>
 
-          <div className="hidden md:block flex-shrink-0" style={{ width: "1.5px", background: "rgba(231,195,11,0.4)", alignSelf: "stretch" }} />
-
-          <div className="hidden md:block flex-1 relative">
-            <div style={{ position: "relative", paddingBottom: "100%", width: "100%" }}>
-              <div style={{ position: "absolute", inset: 0 }}>
-                <HeroCarrossel onSlideChange={setSlideAtual} />
-              </div>
-            </div>
-            <a
-              href={heroSlides[slideAtual].maps}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2"
-              style={{
-                position: "absolute", top: "12px", right: "12px",
-                background: "rgba(0,0,0,0.65)", border: "1px solid rgba(231,195,11,0.7)",
-                color: "#e7c30b", padding: "6px 12px", fontSize: "11px",
-                textDecoration: "none", zIndex: 50, fontWeight: "700",
-              }}
-            >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="#e7c30b">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-              </svg>
-              {heroSlides[slideAtual].cidade} · {heroSlides[slideAtual].endereco}
-            </a>
-          </div>
+        {/* Dots — canto inferior direito */}
+        <div style={{ position: "absolute", bottom: "20px", right: "24px", zIndex: 10, display: "flex", gap: "6px" }}>
+          {heroSlides.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setSlideAtual(i)}
+              className="w-1.5 h-1.5 rounded-full transition-all duration-300"
+              style={{ backgroundColor: i === slideAtual ? "#e7c30b" : "rgba(255,255,255,0.4)" }}
+            />
+          ))}
         </div>
       </section>
 
