@@ -76,9 +76,10 @@ const heroSlides = [
 
 const contadores = [
   { valor: 3, sufixo: "", label: "Unidades" },
-  { valor: 50000, sufixo: "+", label: "Clientes atendidos" },
+  { texto: "25k+", label: "Clientes atendidos" },
   { valor: 30, sufixo: "+ anos", label: "No mercado" },
-  { valor: 10000, sufixo: "+", label: "Itens no estoque" },
+  { texto: "11,5k+", label: "Itens no estoque" },
+  { texto: "2,5m+", label: "Pedidos realizados" },
 ];
 
 // ─── Componentes auxiliares ───────────────────────────────────────────────────
@@ -96,12 +97,13 @@ const StarRating = ({ count }: { count: number }) => (
   </div>
 );
 
-const CounterItem = ({ valor, sufixo, label }: { valor: number; sufixo: string; label: string }) => {
+const CounterItem = ({ valor, sufixo, texto, label }: { valor?: number; sufixo?: string; texto?: string; label: string }) => {
   const [count, setCount] = useState(0);
   const ref = useRef<HTMLDivElement>(null);
   const started = useRef(false);
 
   useEffect(() => {
+    if (texto || valor === undefined) return;
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
@@ -127,14 +129,14 @@ const CounterItem = ({ valor, sufixo, label }: { valor: number; sufixo: string; 
     );
     observer.observe(el);
     return () => observer.disconnect();
-  }, [valor]);
+  }, [valor, texto]);
 
-  const formatted = count >= 1000 ? count.toLocaleString("pt-BR") : count;
+  const formatted = texto ?? (count >= 1000 ? count.toLocaleString("pt-BR") : count) + (sufixo ?? "");
 
   return (
     <div ref={ref} className="text-center">
       <p className="text-4xl md:text-5xl font-extrabold text-white">
-        {formatted}{sufixo}
+        {formatted}
       </p>
       <p className="mt-2 text-sm font-medium text-white/60 uppercase tracking-widest">{label}</p>
     </div>
@@ -266,9 +268,59 @@ const Index = () => {
       {/* Contadores */}
       <section className="py-16" style={{ background: "#1a2840" }}>
         <div className="container">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
             {contadores.map((c) => (
-              <CounterItem key={c.label} valor={c.valor} sufixo={c.sufixo} label={c.label} />
+              <CounterItem key={c.label} valor={c.valor} sufixo={c.sufixo} texto={c.texto} label={c.label} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Instagram */}
+      <section className="py-20 bg-gray-50">
+        <div className="container">
+          <SectionReveal>
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
+              <div>
+                <h2 className="text-3xl font-extrabold text-secondary">Siga no Instagram</h2>
+                <p className="text-muted-foreground mt-1">Acompanhe novidades, promoções e dicas automotivas</p>
+              </div>
+              <a
+                href="https://www.instagram.com/celsaoautopecas"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-white shrink-0"
+                style={{
+                  background: "linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)",
+                  borderRadius: "8px",
+                }}
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+                @celsaoautopecas
+              </a>
+            </div>
+          </SectionReveal>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            {[1, 2, 3, 4, 5, 6].map((n) => (
+              <SectionReveal key={n} delay={n * 0.07}>
+                <a
+                  href="https://www.instagram.com/celsaoautopecas"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="relative block aspect-square rounded-xl overflow-hidden group"
+                  style={{ background: "linear-gradient(135deg, #1a2840 0%, #0f1520 100%)" }}
+                >
+                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="rgba(231,195,11,0.8)">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    <span className="text-xs font-bold text-white/70">Ver no Instagram</span>
+                  </div>
+                </a>
+              </SectionReveal>
             ))}
           </div>
         </div>
@@ -408,56 +460,6 @@ const Index = () => {
                   <p className="text-gray-700 text-sm leading-relaxed flex-1">"{av.texto}"</p>
                   <p className="font-bold text-gray-900 text-sm">{av.nome}</p>
                 </div>
-              </SectionReveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Instagram */}
-      <section className="py-20 bg-gray-50">
-        <div className="container">
-          <SectionReveal>
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
-              <div>
-                <h2 className="text-3xl font-extrabold text-secondary">Siga no Instagram</h2>
-                <p className="text-muted-foreground mt-1">Acompanhe novidades, promoções e dicas automotivas</p>
-              </div>
-              <a
-                href="https://www.instagram.com/celsaoautopecas"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-bold text-white shrink-0"
-                style={{
-                  background: "linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888)",
-                  borderRadius: "8px",
-                }}
-              >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
-                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                </svg>
-                @celsaoautopecas
-              </a>
-            </div>
-          </SectionReveal>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-            {[1, 2, 3, 4, 5, 6].map((n) => (
-              <SectionReveal key={n} delay={n * 0.07}>
-                <a
-                  href="https://www.instagram.com/celsaoautopecas"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="relative block aspect-square rounded-xl overflow-hidden group"
-                  style={{ background: "linear-gradient(135deg, #1a2840 0%, #0f1520 100%)" }}
-                >
-                  <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 opacity-60 group-hover:opacity-100 transition-opacity">
-                    <svg width="32" height="32" viewBox="0 0 24 24" fill="rgba(231,195,11,0.8)">
-                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
-                    </svg>
-                    <span className="text-xs font-bold text-white/70">Ver no Instagram</span>
-                  </div>
-                </a>
               </SectionReveal>
             ))}
           </div>
