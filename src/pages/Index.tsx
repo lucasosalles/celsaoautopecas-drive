@@ -69,24 +69,9 @@ const categorias = [
 ];
 
 const heroSlides = [
-  {
-    imagem: "/loja-atibaia.jpg",
-    cidade: "Atibaia",
-    endereco: "Praça 24 de Junho, 40",
-    maps: "https://www.google.com/maps/search/?api=1&query=Celsao+Auto+Pecas+Atibaia+SP",
-  },
-  {
-    imagem: "/loja-bom-jesus.jpg",
-    cidade: "Bom Jesus dos Perdões",
-    endereco: "Av. Santos Dumont, 425",
-    maps: "https://www.google.com/maps/search/?api=1&query=Celsao+Auto+Pecas+Bom+Jesus+dos+Perdoes+SP",
-  },
-  {
-    imagem: "/loja-nazare.jpg",
-    cidade: "Nazaré Paulista",
-    endereco: "R. José Gonçalves, 332",
-    maps: "https://www.google.com/maps/search/?api=1&query=Celsao+Auto+Pecas+Nazare+Paulista+SP",
-  },
+  { imagem: "/Banner 1.jpg" },
+  { imagem: "/Banner 2.jpg" },
+  { imagem: "/Banner 3.jpg" },
 ];
 
 const contadores = [
@@ -198,7 +183,7 @@ const HeroCarrossel = ({ slideAtual, onSlideChange }: { slideAtual: number; onSl
           <div key={i} className="relative flex-shrink-0 w-full h-full" style={{ minWidth: "100%" }}>
             <img
               src={slide.imagem}
-              alt={slide.cidade}
+              alt={`Banner ${i + 1}`}
               className="w-full h-full"
               style={{ objectFit: "cover", objectPosition: "center center", opacity: 0.75, width: "100%", height: "100%" }}
             />
