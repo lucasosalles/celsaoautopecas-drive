@@ -58,6 +58,7 @@ const OrcamentoModal = () => {
               placeholder="Ex: Chevrolet Onix"
               value={form.carro}
               onChange={(e) => setForm({ ...form, carro: e.target.value })}
+              maxLength={100}
               className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
             />
           </div>
@@ -68,6 +69,7 @@ const OrcamentoModal = () => {
               placeholder="Ex: 2020 / LT"
               value={form.anoModelo}
               onChange={(e) => setForm({ ...form, anoModelo: e.target.value })}
+              maxLength={20}
               className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-400"
             />
           </div>
@@ -79,6 +81,7 @@ const OrcamentoModal = () => {
               placeholder="Ex: Pastilha de freio dianteira, filtro de óleo"
               value={form.pecas}
               onChange={(e) => setForm({ ...form, pecas: e.target.value })}
+              maxLength={500}
               className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-green-400 resize-none"
             />
           </div>

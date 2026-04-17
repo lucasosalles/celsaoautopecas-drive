@@ -23,7 +23,9 @@ const InstagramFeed = () => {
       .then((data) => {
         if (data.data) setPosts(data.data);
       })
-      .catch(() => {})
+      .catch((err) => {
+        console.error("InstagramFeed: falha ao carregar posts", err);
+      })
       .finally(() => setLoading(false));
   }, []);
 

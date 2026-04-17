@@ -173,6 +173,7 @@ const UnidadePage = ({
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   title={`Mapa Celsão Auto Peças ${cidade}`}
+                  sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
                 />
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
                   <a

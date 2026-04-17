@@ -36,4 +36,8 @@ RewriteRule ^ index.html [QSA,L]
   Header always set X-Content-Type-Options "nosniff"
   Header always set X-Frame-Options "SAMEORIGIN"
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
+  Header always set X-XSS-Protection "1; mode=block"
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+  Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https: blob:; font-src 'self' data:; connect-src 'self' https://graph.instagram.com https://scontent-gru1-1.cdninstagram.com https://scontent-gru1-2.cdninstagram.com https://scontent-gru2-1.cdninstagram.com https://scontent-gru2-2.cdninstagram.com; frame-src https://maps.google.com https://www.google.com; media-src 'self' https:; object-src 'none'; base-uri 'self'; form-action 'self' https://api.whatsapp.com https://wa.me;"
 </IfModule>
