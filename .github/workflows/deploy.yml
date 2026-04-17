@@ -16,6 +16,9 @@ jobs:
       - name: Install dependencies
         run: bun install
       - name: Build
+        env:
+          VITE_INSTAGRAM_TOKEN: ${{ secrets.VITE_INSTAGRAM_TOKEN }}
+          VITE_INSTAGRAM_ACCOUNT_ID: ${{ secrets.VITE_INSTAGRAM_ACCOUNT_ID }}
         run: bun run build
       - name: Copy logos to dist
         run: |
