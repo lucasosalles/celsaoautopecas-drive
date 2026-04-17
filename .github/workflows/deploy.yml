@@ -24,13 +24,16 @@ jobs:
         run: |
           mkdir -p dist/logos
           cp public/logos/*.png dist/logos/
-      - name: Install sshpass
-        run: sudo apt-get install -y sshpass
-      - name: Deploy via rsync
-        env:
-          SSH_PASSWORD: ${{ secrets.SSH_PASSWORD }}
+      - name: Setup SSH key
         run: |
-          sshpass -p "$SSH_PASSWORD" rsync -avz --delete \
-            -e "ssh -p 65002 -o StrictHostKeyChecking=no" \
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          eval "$(ssh-agent -s)"
+          ssh-add ~/.ssh/deploy_key
+      - name: Deploy via rsync
+        run: |
+          rsync -avz --delete \
+            -e "ssh -i ~/.ssh/deploy_key -p 65002 -o StrictHostKeyChecking=no" \
             dist/ \
             u641304150@212.85.6.3:/home/u641304150/domains/celsaoautopecas.com/public_html/
