@@ -214,25 +214,9 @@ const Index = () => {
           <HeroCarrossel slideAtual={slideAtual} onSlideChange={setSlideAtual} />
         </div>
 
-        {/* Overlay: degradê de baixo para cima */}
-        <div
-          style={{
-            position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none",
-            background: "linear-gradient(to top, rgba(10,15,26,0.95) 0%, transparent 100%)",
-          }}
-        />
-
-        {/* Overlay: degradê da esquerda para direita */}
-        <div
-          style={{
-            position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none",
-            background: "linear-gradient(to right, rgba(10,15,26,0.5) 0%, transparent 60%)",
-          }}
-        />
-
         {/* Conteúdo de texto */}
         <div className="container" style={{ position: "relative", zIndex: 10 }}>
-          <div style={{ paddingTop: "120px", paddingBottom: "48px", maxWidth: "580px" }}>
+          <div style={{ paddingTop: "200px", paddingBottom: "48px", maxWidth: "580px" }}>
             <SectionReveal>
               <h1
                 className="font-extrabold leading-tight"
@@ -244,7 +228,7 @@ const Index = () => {
             </SectionReveal>
             <SectionReveal delay={0.1}>
               <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "15px", lineHeight: "1.6", marginBottom: "32px" }}>
-                Oferecemos as melhores peças automotivas do mercado com garantia de procedência. Atendimento especializado e consultoria técnica para manter seu veículo sempre em perfeito estado.
+                Oferecemos as melhores peças automotivas do mercado<br />com garantia de procedência. Atendimento especializado<br />e consultoria técnica para manter seu veículo sempre em perfeito estado.
               </p>
             </SectionReveal>
             <SectionReveal delay={0.2}>
