@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet-async";
-import { Award, Clock, Headphones, Mail, Phone, MapPin, Truck, Star, Package, Wrench, Zap, Filter, Settings, Disc } from "lucide-react";
+import { Award, Clock, Headphones, Mail, Phone, MapPin, Star, Package, Wrench, Zap, Filter, Settings, Disc } from "lucide-react";
 import SectionReveal from "@/components/SectionReveal";
 import InstagramFeed from "@/components/InstagramFeed";
 import { useOrcamento } from "@/context/OrcamentoContext";
@@ -172,7 +172,7 @@ const HeroCarrossel = ({ slideAtual, onSlideChange }: { slideAtual: number; onSl
   React.useEffect(() => {
     const interval = setInterval(() => {
       onSlideChange((slideAtual + 1) % heroSlides.length);
-    }, 3500);
+    }, 5000);
     return () => clearInterval(interval);
   }, [slideAtual, onSlideChange]);
 
@@ -335,20 +335,26 @@ const Index = () => {
       {/* Entrega gratuita */}
       <section className="py-16" style={{ background: "linear-gradient(135deg, #1a2840 0%, #0f1520 100%)" }}>
         <div className="container">
-          <div className="flex flex-col md:flex-row items-center gap-10">
-            <div className="flex-shrink-0 flex h-24 w-24 items-center justify-center rounded-full" style={{ backgroundColor: "rgba(231,195,11,0.15)", border: "2px solid rgba(231,195,11,0.4)" }}>
-              <Truck className="h-10 w-10" style={{ color: "#e7c30b" }} />
+          <div className="text-center md:text-left">
+            <div className="flex flex-col md:flex-row md:items-center gap-3 mb-3">
+              <svg width="28" height="28" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" style={{ flexShrink: 0 }}>
+                <circle cx="14" cy="50" r="7" stroke="#e7c30b" strokeWidth="3" fill="none"/>
+                <circle cx="50" cy="50" r="7" stroke="#e7c30b" strokeWidth="3" fill="none"/>
+                <path d="M7 50H4V38l8-6 6-12h18l6 8h8l4 8v12h-3" stroke="#e7c30b" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round"/>
+                <path d="M21 50h22" stroke="#e7c30b" strokeWidth="3" strokeLinecap="round"/>
+                <path d="M18 32h16l4 6H18v-6z" stroke="#e7c30b" strokeWidth="2.5" strokeLinejoin="round"/>
+                <circle cx="30" cy="18" r="5" stroke="#e7c30b" strokeWidth="2.5" fill="none"/>
+                <path d="M30 23v6l-3 4" stroke="#e7c30b" strokeWidth="2.5" strokeLinecap="round"/>
+              </svg>
+              <h2 className="text-3xl font-extrabold text-white">Entrega gratuita na região*</h2>
             </div>
-            <div className="text-center md:text-left">
-              <h2 className="text-3xl font-extrabold text-white mb-3">Entrega gratuita na região</h2>
-              <p className="text-white/70 text-lg max-w-2xl">
-                Realizamos entregas sem custo adicional em toda a área de abrangência das nossas 3 unidades —{" "}
-                <strong className="text-white">Atibaia</strong>,{" "}
-                <strong className="text-white">Bom Jesus dos Perdões</strong> e{" "}
-                <strong className="text-white">Nazaré Paulista</strong> e municípios vizinhos.
-              </p>
-              <p className="text-white/50 text-sm mt-3">Consulte disponibilidade pelo WhatsApp · Seg–Sex 8h–18h · Sáb 8h–13h</p>
-            </div>
+            <p className="text-white/70 text-lg max-w-2xl">
+              Realizamos entregas sem custo adicional em toda a área de abrangência das nossas 3 unidades<br />
+              <strong className="text-white">Atibaia</strong>,{" "}
+              <strong className="text-white">Bom Jesus dos Perdões</strong> e{" "}
+              <strong className="text-white">Nazaré Paulista</strong> e municípios vizinhos.
+            </p>
+            <p className="text-white/50 text-sm mt-3">Consulte disponibilidade e valor mínimo por pedido pelo WhatsApp · Seg–Sex 8h–18h · Sáb 8h–13h</p>
           </div>
         </div>
       </section>
@@ -386,7 +392,12 @@ const Index = () => {
           <SectionReveal>
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-10">
               <div>
-                <h2 className="text-3xl font-extrabold text-white">Siga-nos no Instagram</h2>
+                <div className="flex items-center gap-3">
+                  <h2 className="text-3xl font-extrabold text-white">Confira se você nos segue</h2>
+                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#e7c30b" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M5 12h14"/><path d="m12 5 7 7-7 7"/>
+                  </svg>
+                </div>
                 <p className="mt-1" style={{ color: "rgba(255,255,255,0.5)" }}>Acompanhe novidades, promoções e dicas automotivas</p>
               </div>
               <a
