@@ -14,6 +14,7 @@ import NotFound from "./pages/NotFound";
 import Atibaia from "./pages/Atibaia";
 import BomJesus from "./pages/BomJesus";
 import NazarePaulista from "./pages/NazarePaulista";
+import Catalogo from "./pages/Catalogo";
 
 const queryClient = new QueryClient();
 
@@ -32,6 +33,7 @@ const App = () => (
               <Route path="/atibaia" element={<Atibaia />} />
               <Route path="/bom-jesus-dos-perdoes" element={<BomJesus />} />
               <Route path="/nazare-paulista" element={<NazarePaulista />} />
+              <Route path="/catalogo" element={<Catalogo />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

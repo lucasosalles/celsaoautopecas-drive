@@ -9,6 +9,8 @@ const Contato = () => {
     <>
       <Helmet>
         <title>Contato | Celsão Auto Peças</title>
+        <meta name="description" content="Entre em contato com a Celsão Auto Peças. Atendimento via WhatsApp, e-mail ou telefone. 3 unidades em Atibaia, Bom Jesus dos Perdões e Nazaré Paulista — SP." />
+        <link rel="canonical" href="https://celsaoautopecas.com/contato" />
       </Helmet>
 
       <section className="py-20">

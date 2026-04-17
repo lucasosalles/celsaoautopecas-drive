@@ -12,6 +12,7 @@ const NazarePaulista = () => (
     mapsLink="https://www.google.com/maps/dir/?api=1&destination=Rua+Jos%C3%A9+Gon%C3%A7alves+332+Nazar%C3%A9+Paulista+SP"
     title="Auto Peças em Nazaré Paulista | Celsão Auto Peças"
     description="Celsão Auto Peças em Nazaré Paulista. Peças originais e alternativas para todas as marcas. Rua José Gonçalves, 332."
+    slug="nazare-paulista"
   />
 );
 

@@ -22,6 +22,8 @@ const Sobre = () => (
   <>
     <Helmet>
       <title>Sobre Nós | Celsão Auto Peças</title>
+      <meta name="description" content="Conheça a história da Celsão Auto Peças, mais de 30 anos no mercado automotivo. 3 unidades em SP: Atibaia, Bom Jesus dos Perdões e Nazaré Paulista. Qualidade e confiança desde 1994." />
+      <link rel="canonical" href="https://celsaoautopecas.com/sobre" />
     </Helmet>
 
     <section className="py-20">

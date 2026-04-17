@@ -12,6 +12,7 @@ const BomJesus = () => (
     mapsLink="https://www.google.com/maps/dir/?api=1&destination=Av+Santos+Dumont+425+Bom+Jesus+dos+Perdoes+SP"
     title="Auto Peças em Bom Jesus dos Perdões | Celsão Auto Peças"
     description="Celsão Auto Peças em Bom Jesus dos Perdões. Peças originais e alternativas para todas as marcas. Av. Santos Dumont, 425."
+    slug="bom-jesus-dos-perdoes"
   />
 );
 

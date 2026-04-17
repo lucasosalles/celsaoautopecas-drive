@@ -13,6 +13,7 @@ interface UnidadeProps {
   mapsLink: string;
   title: string;
   description: string;
+  slug: string;
 }
 
 const WhatsAppIcon = ({ size = 20 }: { size?: number }) => (
@@ -32,14 +33,39 @@ const UnidadePage = ({
   mapsLink,
   title,
   description,
+  slug,
 }: UnidadeProps) => {
   const { openModal } = useOrcamento();
+  const canonicalUrl = `https://celsaoautopecas.com/${slug}`;
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "AutoPartsStore",
+    "name": `Celsão Auto Peças — ${cidade}`,
+    "url": canonicalUrl,
+    "telephone": telefoneRaw,
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": endereco,
+      "addressLocality": cidade,
+      "addressRegion": "SP",
+      "addressCountry": "BR"
+    },
+    "openingHours": ["Mo-Fr 08:00-18:00", "Sa 08:00-13:00"],
+    "image": "https://celsaoautopecas.com/logo.png",
+    "parentOrganization": {
+      "@type": "AutoPartsStore",
+      "name": "Celsão Auto Peças",
+      "url": "https://celsaoautopecas.com"
+    }
+  };
 
   return (
     <>
       <Helmet>
         <title>{title}</title>
         <meta name="description" content={description} />
+        <link rel="canonical" href={canonicalUrl} />
+        <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
       </Helmet>
 
       {/* Hero */}

@@ -12,6 +12,7 @@ const Atibaia = () => (
     mapsLink="https://www.google.com/maps/dir/?api=1&destination=Pra%C3%A7a+24+de+Junho+40+Atibaia+SP"
     title="Auto Peças em Atibaia | Celsão Auto Peças"
     description="Celsão Auto Peças em Atibaia. Peças originais e alternativas para todas as marcas. Praça 24 de Junho, 40. Seg–Sex 8h–18h."
+    slug="atibaia"
   />
 );
 

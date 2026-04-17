@@ -28,6 +28,9 @@ const Catalogo = () => {
   return (
     <>
       <Helmet>
+      <title>Catálogo de Peças | Celsão Auto Peças</title>
+      <meta name="description" content="Catálogo de autopeças da Celsão: freios, suspensão, motor, elétrica, filtros, correias e mais. Peças originais das melhores marcas para todos os veículos. Atibaia, Bom Jesus dos Perdões e Nazaré Paulista." />
+      <link rel="canonical" href="https://celsaoautopecas.com/catalogo" />
         <title>Catálogo de Peças | Celsão Auto Peças</title>
       </Helmet>
 
