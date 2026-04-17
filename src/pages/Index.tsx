@@ -228,7 +228,7 @@ const Index = () => {
             </SectionReveal>
             <SectionReveal delay={0.1}>
               <p style={{ color: "rgba(255,255,255,0.7)", fontSize: "15px", lineHeight: "1.6", marginBottom: "32px" }}>
-                Oferecemos as melhores peças automotivas do mercado<br />com garantia de procedência. Atendimento especializado<br />e consultoria técnica para manter seu veículo sempre em perfeito estado.
+                Oferecemos as melhores peças automotivas do mercado com garantia<br />de procedência, atendimento especializado e consultoria técnica<br />para manter seu veículo sempre em perfeito estado.
               </p>
             </SectionReveal>
             <SectionReveal delay={0.2}>
