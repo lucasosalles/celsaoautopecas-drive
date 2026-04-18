@@ -455,6 +455,22 @@ const Index = () => {
               </SectionReveal>
             ))}
           </div>
+
+          <SectionReveal delay={0.3}>
+            <div className="mt-12 text-center">
+              <p className="text-gray-500 text-sm mb-4">Foi bem atendido? Conta pra gente no Google!</p>
+              <a
+                href="/avaliacao"
+                className="inline-flex items-center gap-2 px-8 py-4 font-extrabold text-white text-sm transition-all hover:brightness-110 active:scale-[0.97]"
+                style={{ backgroundColor: "#e7c30b", color: "#0f1520", borderRadius: "8px" }}
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="#0f1520">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+                Deixar minha avaliação
+              </a>
+            </div>
+          </SectionReveal>
         </div>
       </section>
 
