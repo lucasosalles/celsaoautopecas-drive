@@ -13,12 +13,7 @@ const InstagramFeed = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const token = import.meta.env.VITE_INSTAGRAM_TOKEN;
-    const accountId = import.meta.env.VITE_INSTAGRAM_ACCOUNT_ID;
-
-    fetch(
-      `https://graph.instagram.com/v25.0/${accountId}/media?fields=id,media_url,permalink,media_type,thumbnail_url&limit=6&access_token=${token}`
-    )
+    fetch("https://celsaoautopecas-drive.vercel.app/api/instagram")
       .then((r) => r.json())
       .then((data) => {
         if (data.data) setPosts(data.data);
